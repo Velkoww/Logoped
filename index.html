@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Логопедичен кабинет „Думичка“ – демо</title>
+<meta name="description" content="Логопедична терапия за деца и възрастни в София. Консултации, оценка на говора, индивидуални занимания.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800;900&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#2a2550; --muted:#615c80; --soft:#4b4670; --line:#ece9f7;
+  --lilac:#cdbdff; --lilac-l:#f3efff;
+  --mint:#9fe3c9; --mint-l:#e8f9f2;
+  --butter:#ffe28a; --butter-l:#fff8de;
+  --sky:#a8d5ff; --sky-l:#ebf5ff;
+  --pink:#ffbfd3; --pink-l:#fff0f5;
+  --peach:#ffc9a3; --peach-l:#fff3ea;
+  --violet:#5b3fd6; --violet-d:#4a2fc0;
+  --disp:'Unbounded',system-ui,sans-serif;
+  --body:'Manrope',system-ui,sans-serif;
+  --spring:cubic-bezier(.3,1.6,.5,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{font-family:var(--body);background:#fff;color:var(--ink);line-height:1.6;font-size:17px;padding-bottom:78px;overflow-x:clip}
+@media(min-width:900px){body{padding-bottom:0}}
+a{color:inherit}
+img,svg{display:block;max-width:100%}
+button{font:inherit;color:inherit}
+.wrap{width:min(1160px,92%);margin:0 auto;position:relative}
+h1,h2,h3{font-family:var(--disp);line-height:1.15;letter-spacing:-.015em}
+h2{font-size:clamp(1.7rem,4.4vw,2.7rem);font-weight:800;margin-bottom:.8rem;max-width:18ch}
+h3{font-weight:700}
+.lead{color:var(--muted);font-size:1.1rem;max-width:54ch}
+section{padding:90px 0;position:relative}
+:focus-visible{outline:3px solid var(--violet);outline-offset:3px;border-radius:10px}
+.demo{background:var(--ink);color:#fff;text-align:center;font-size:.82rem;padding:.45rem 1rem}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(34px);transition:opacity .7s ease,transform .8s var(--spring);transition-delay:calc(var(--i,0)*90ms)}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+@keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes jelly{30%{scale:1.2 .85}50%{scale:.9 1.1}70%{scale:1.05 .97}}
+
+/* header */
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);backdrop-filter:blur(14px);transition:box-shadow .3s}
+header.scrolled{box-shadow:0 8px 30px rgba(42,37,80,.07)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:74px}
+.logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.logo-mark{display:flex;gap:3px;align-items:center;height:28px}
+.logo-mark i{width:7px;border-radius:5px;display:block;animation:eq 1.4s ease-in-out infinite}
+.logo-mark i:nth-child(1){background:var(--lilac);height:12px}
+.logo-mark i:nth-child(2){background:var(--sky);height:22px;animation-delay:.15s}
+.logo-mark i:nth-child(3){background:var(--mint);height:28px;animation-delay:.3s}
+.logo-mark i:nth-child(4){background:var(--butter);height:18px;animation-delay:.45s}
+.logo-mark i:nth-child(5){background:var(--pink);height:10px;animation-delay:.6s}
+@keyframes eq{50%{transform:scaleY(.5)}}
+.logo b{font-family:var(--disp);font-weight:800;font-size:1.15rem;display:block;line-height:1.1}
+.logo small{font-size:.78rem;color:var(--muted);font-weight:700}
+.menu{display:none;gap:1.6rem;list-style:none;font-weight:700;font-size:.95rem}
+.menu a{text-decoration:none;color:var(--muted);position:relative;padding:.2rem 0}
+.menu a::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:3px;border-radius:3px;background:var(--lilac);transform:scaleX(0);transition:transform .25s var(--spring)}
+.menu a:hover{color:var(--ink)}.menu a:hover::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;font-weight:800;border:0;cursor:pointer;text-decoration:none;border-radius:99px;padding:1rem 1.7rem;transition:transform .2s var(--spring),background .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-3px)}
+.btn:active{transform:scale(.96)}
+.btn-main{background:var(--violet);color:#fff;box-shadow:0 14px 26px rgba(91,63,214,.3)}
+.btn-main:hover{background:var(--violet-d)}
+.btn-ghost{background:#fff;color:var(--ink);box-shadow:0 0 0 2px var(--line) inset}
+.btn-ghost:hover{box-shadow:0 0 0 2px var(--lilac) inset}
+.btn svg{width:20px;height:20px}
+.nav .btn{display:none;padding:.7rem 1.3rem}
+.burger{background:var(--lilac-l);border:0;width:46px;height:46px;border-radius:50%;cursor:pointer;display:grid;place-items:center}
+.burger span,.burger span::before,.burger span::after{display:block;width:20px;height:2.5px;background:var(--ink);border-radius:2px;position:relative;transition:.25s}
+.burger span::before,.burger span::after{content:"";position:absolute;left:0}
+.burger span::before{top:-6px}.burger span::after{top:6px}
+.burger[aria-expanded="true"] span{background:transparent}
+.burger[aria-expanded="true"] span::before{top:0;transform:rotate(45deg)}
+.burger[aria-expanded="true"] span::after{top:0;transform:rotate(-45deg)}
+.mobile-menu{display:grid;gap:.4rem;padding:0 4%;max-height:0;overflow:hidden;transition:max-height .4s ease,padding .4s}
+.mobile-menu.open{max-height:480px;padding:.4rem 4% 1.2rem}
+.mobile-menu a{display:flex;align-items:center;gap:.8rem;padding:.8rem 1rem;font-weight:800;text-decoration:none;border-radius:18px;background:#f7f6fc}
+.mobile-menu a i{width:12px;height:12px;border-radius:50%;background:var(--c)}
+@media(min-width:1000px){.menu,.nav .btn{display:flex}.burger,.mobile-menu{display:none!important}}
+
+/* ===== HERO ===== */
+.hero{padding:40px 0 30px;text-align:center;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:
+  radial-gradient(50% 60% at 10% 10%,var(--sky-l),transparent 70%),
+  radial-gradient(45% 55% at 92% 18%,var(--pink-l),transparent 70%),
+  radial-gradient(50% 50% at 50% 100%,var(--butter-l),transparent 70%)}
+.hello{display:inline-flex;gap:.35rem;margin-bottom:1.2rem}
+.hello span{font-family:var(--disp);font-weight:800;font-size:.95rem;width:2.1em;height:2.1em;border-radius:50%;display:grid;place-items:center;background:var(--c);animation:up .6s var(--spring) both,hop 3s ease-in-out infinite;animation-delay:calc(var(--i)*80ms),calc(var(--i)*150ms + 1s)}
+@keyframes hop{0%,70%,100%{transform:none}80%{transform:translateY(-6px)}}
+.hero h1{font-size:clamp(2.3rem,7.5vw,4.6rem);font-weight:900;max-width:15ch;margin:0 auto 1.1rem;animation:up .9s var(--spring) .2s both}
+.hero .lead{margin:0 auto 1.8rem;animation:up .9s var(--spring) .35s both}
+.cta{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;animation:up .9s var(--spring) .5s both}
+
+.mag{position:absolute;z-index:3;width:clamp(52px,13vw,80px);aspect-ratio:1;border-radius:22px;border:0;cursor:pointer;
+  font-family:var(--disp);font-weight:900;font-size:clamp(1.5rem,5.6vw,2.3rem);color:var(--ink);display:grid;place-items:center;
+  box-shadow:inset 0 -6px 0 rgba(42,37,80,.12),0 14px 24px rgba(42,37,80,.14);transform:rotate(var(--r));
+  animation:magIn .7s var(--spring) both,bob 4s ease-in-out infinite;animation-delay:calc(var(--d) + .9s),calc(var(--d)*3);transition:transform .3s var(--spring)}
+.mag:hover{transform:rotate(0) scale(1.1)}
+.mag.on{animation:magIn .7s var(--spring) both,jelly .6s ease;box-shadow:0 0 0 4px #fff,0 0 0 8px var(--violet),0 14px 24px rgba(42,37,80,.14)}
+@keyframes magIn{from{opacity:0;transform:rotate(var(--r)) scale(.2)}}
+@keyframes bob{50%{translate:0 -7px}}
+.m1{background:var(--lilac);--r:-10deg;--d:.1s;top:-26px;left:-18px}
+.m2{background:var(--butter);--r:8deg;--d:.2s;top:-30px;right:16%}
+.m3{background:var(--mint);--r:-6deg;--d:.3s;top:34%;right:-24px}
+.m4{background:var(--pink);--r:12deg;--d:.4s;bottom:-24px;right:6%}
+.m5{background:var(--sky);--r:-14deg;--d:.5s;top:46%;left:-24px}
+.m6{background:var(--peach);--r:5deg;--d:.6s;bottom:-28px;left:22%}
+.say{position:absolute;z-index:4;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);color:#fff;font-weight:700;font-size:.95rem;
+  padding:.7rem 1.2rem;border-radius:18px 18px 18px 4px;white-space:nowrap;max-width:80%;overflow:hidden;text-overflow:ellipsis}
+.say b{color:var(--butter);font-family:var(--disp)}
+.say.pulse{animation:jelly .5s ease}
+.wave-old{display:flex;align-items:center;justify-content:center;gap:clamp(3px,.6vw,7px);height:120px;margin:2.6rem auto 0;width:min(1160px,96%);cursor:crosshair;touch-action:pan-y}
+.wave i{flex:1;max-width:14px;border-radius:99px;background:var(--c);height:var(--h,20%);transition:height .35s cubic-bezier(.2,.9,.3,1.2)}
+.wave-hint{font-size:.85rem;font-weight:700;color:var(--muted);margin-top:.4rem}
+
+.frame{position:relative;width:min(1000px,88%);margin:3rem auto 2.6rem;animation:up 1s var(--spring) .7s both}
+.photo{aspect-ratio:4/3;border-radius:40px;background:linear-gradient(135deg,var(--sky-l),var(--lilac-l) 50%,var(--pink-l));display:grid;place-items:center;color:var(--muted);font-weight:700;overflow:hidden;position:relative;box-shadow:0 0 0 8px #fff,0 40px 80px -20px rgba(91,63,214,.25)}
+@media(min-width:760px){.photo{aspect-ratio:16/8}}
+.photo img{width:100%;height:100%;object-fit:cover}
+.photo .ph-ico{display:grid;gap:.5rem;justify-items:center}
+.photo .ph-ico svg{width:46px;height:46px;opacity:.6}
+.frame::after{content:"";position:absolute;left:12%;bottom:-34px;width:60px;height:46px;background:#fff;clip-path:polygon(0 0,100% 0,10% 100%);z-index:-1}
+.tail{position:absolute;left:12%;bottom:-24px;width:44px;height:30px;background:linear-gradient(135deg,var(--lilac-l),var(--pink-l));clip-path:polygon(0 0,100% 0,8% 100%);margin-left:8px}
+.chip{position:absolute;background:#fff;border-radius:20px;padding:.7rem 1rem;font-weight:800;font-size:.9rem;box-shadow:0 16px 34px rgba(42,37,80,.13);display:flex;align-items:center;gap:.6rem;text-align:left;line-height:1.25;animation:float 5s ease-in-out infinite}
+.chip i{width:38px;height:38px;border-radius:12px;background:var(--c);display:grid;place-items:center;font-style:normal;font-size:1.2rem;flex:none}
+.chip small{display:block;font-weight:600;color:var(--muted);font-size:.78rem}
+.c1{top:-18px;right:4%}.c2{bottom:22px;right:-6px;animation-delay:-2.5s}
+@media(max-width:600px){.c2{display:none}.chip{font-size:.8rem;padding:.55rem .8rem}.chip i{width:32px;height:32px}}
+@keyframes float{50%{transform:translateY(-10px)}}
+
+/* ===== SERVICES (selector) ===== */
+.sel{display:grid;gap:1.4rem;margin-top:2.6rem}
+@media(min-width:1000px){.sel{grid-template-columns:340px 1fr;gap:2rem;align-items:start}}
+.sel-list{display:flex;gap:.6rem;overflow-x:auto;padding:4px 2px 10px;scrollbar-width:none}
+@media(min-width:1000px){.sel-list{flex-direction:column;overflow:visible;padding:0}}
+.sel-btn{flex:none;display:flex;align-items:center;gap:.8rem;text-align:left;border:0;cursor:pointer;background:#f7f6fc;border-radius:22px;padding:.75rem 1.1rem .75rem .75rem;font-weight:800;transition:background .3s,transform .3s var(--spring)}
+.sel-btn i{width:42px;height:42px;border-radius:14px;background:#fff;display:grid;place-items:center;font-style:normal;flex:none;transition:transform .4s var(--spring)}
+.sel-btn i svg{width:26px;height:26px}
+.sel-btn:hover{transform:translateX(4px)}
+.sel-btn[aria-selected="true"]{background:var(--c)}
+.sel-btn[aria-selected="true"] i{transform:rotate(-10deg) scale(1.08)}
+.sel-panel{border-radius:40px;padding:clamp(1.6rem,4vw,3rem);background:var(--c);position:relative;overflow:hidden;min-height:360px;transition:background .5s}
+.sel-panel .big{position:absolute;right:-.06em;bottom:-.22em;font-family:var(--disp);font-weight:900;font-size:clamp(9rem,26vw,16rem);line-height:1;color:rgba(255,255,255,.5);pointer-events:none}
+.sel-panel .inner{position:relative;max-width:46ch}
+.sel-panel.swap .inner,.sel-panel.swap .big{animation:up .55s var(--spring) both}
+.sel-panel h3{font-size:clamp(1.4rem,3.4vw,2rem);font-weight:800;margin-bottom:.8rem}
+.sel-panel p{color:var(--soft);font-size:1.05rem;margin-bottom:1.2rem}
+.sel-panel ul{list-style:none;display:grid;gap:.5rem}
+.sel-panel li{background:rgba(255,255,255,.7);border-radius:16px;padding:.7rem 1rem;font-weight:700;display:flex;gap:.7rem;align-items:center}
+.sel-panel li::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--ink);flex:none}
+.sel-panel .who{display:inline-block;margin-top:1.2rem;font-weight:800;font-size:.9rem;background:#fff;border-radius:99px;padding:.4rem .9rem}
+
+/* ===== ABOUT ===== */
+.about{background:var(--mint-l)}
+.about-grid{display:grid;gap:3rem;align-items:center}
+@media(min-width:1000px){.about-grid{grid-template-columns:1fr 1fr;gap:4.5rem}}
+.ring{position:relative;width:min(420px,86vw);aspect-ratio:1;margin:0 auto}
+.ring svg.txt{position:absolute;inset:0;width:100%;height:100%;animation:spin 26s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ring text{font-family:var(--disp);font-weight:700;font-size:13.5px;letter-spacing:3px;fill:var(--ink)}
+.ring .ph{position:absolute;inset:18%;border-radius:50%;background:linear-gradient(160deg,var(--butter),var(--peach));display:grid;place-items:center;color:#8a6a4f;font-weight:700;box-shadow:0 0 0 10px #fff}
+.ring .st{position:absolute;width:64px;height:64px;border-radius:50%;background:var(--c);display:grid;place-items:center;font-size:1.6rem;box-shadow:0 0 0 6px #fff;animation:float 4s ease-in-out infinite}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-top:1.8rem}
+.stats div{background:#fff;border-radius:22px;padding:1rem;text-align:center}
+.stats b{font-family:var(--disp);font-size:clamp(1.3rem,4vw,1.9rem);display:block;line-height:1.1;color:var(--violet)}
+.stats span{font-size:.82rem;font-weight:700;color:var(--soft)}
+.creds{list-style:none;margin-top:1.4rem;display:flex;flex-wrap:wrap;gap:.5rem}
+.creds li{font-weight:700;font-size:.92rem;background:#fff;border-radius:99px;padding:.5rem 1rem;border:2px solid var(--c)}
+
+/* ===== GAME ===== */
+.game-sec{background:linear-gradient(180deg,#fff,var(--sky-l))}
+.game-head{display:grid;gap:1rem;align-items:end}
+@media(min-width:900px){.game-head{grid-template-columns:1fr auto}}
+.arena{position:relative;margin-top:2.2rem;height:clamp(440px,70vh,560px);border-radius:40px;overflow:hidden;
+  background:linear-gradient(180deg,#d9ecff 0%,#efe8ff 55%,#ffe9f1 100%);box-shadow:0 0 0 8px #fff,0 40px 70px -30px rgba(42,37,80,.35);user-select:none;-webkit-user-select:none;touch-action:manipulation}
+.arena .cloud{position:absolute;background:#fff;border-radius:99px;opacity:.8;animation:cloud 40s linear infinite}
+.arena .cloud::before,.arena .cloud::after{content:"";position:absolute;background:#fff;border-radius:50%}
+.arena .cloud::before{width:55%;height:160%;left:15%;bottom:20%}.arena .cloud::after{width:40%;height:120%;right:12%;bottom:30%}
+@keyframes cloud{from{transform:translateX(-30vw)}to{transform:translateX(110vw)}}
+.hud{position:absolute;top:14px;left:14px;right:14px;display:flex;justify-content:space-between;align-items:center;gap:.6rem;z-index:5;pointer-events:none}
+.hud>div{background:rgba(255,255,255,.9);border-radius:99px;padding:.45rem .9rem;font-weight:800;font-size:.92rem;display:flex;align-items:center;gap:.4rem}
+.target{font-family:var(--disp);font-size:1.25rem;color:var(--violet)}
+.hearts{letter-spacing:2px}
+.timebar{position:absolute;left:0;right:0;bottom:0;height:8px;background:rgba(255,255,255,.6);z-index:5}
+.timebar i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--mint),var(--sky),var(--lilac));transform-origin:left;transition:transform .2s linear}
+.bub{position:absolute;width:var(--s);height:var(--s);border-radius:50%;border:0;cursor:pointer;
+  background:radial-gradient(circle at 30% 28%,rgba(255,255,255,.95) 0 10%,rgba(255,255,255,.35) 11% 35%,transparent 36%),var(--c);
+  box-shadow:inset -6px -10px 18px rgba(42,37,80,.12),0 10px 20px rgba(42,37,80,.1);
+  display:grid;place-items:center;align-content:center;font-size:calc(var(--s)*.5);line-height:1;padding:0;z-index:2}
+.bub small{display:block;font-family:var(--body);font-weight:800;font-size:clamp(.68rem,2.4vw,.8rem);color:var(--ink);margin-top:.25rem}
+.bub.pop{animation:popb .35s ease-out forwards;pointer-events:none}
+@keyframes popb{60%{transform:scale(1.35);opacity:.8}100%{transform:scale(1.6);opacity:0}}
+.bub.bad{animation:shake .4s ease;filter:grayscale(.6)}
+@keyframes shake{20%,60%{translate:-8px 0}40%,80%{translate:8px 0}}
+.plus{position:absolute;white-space:nowrap;font-family:var(--disp);font-weight:900;font-size:1.25rem;text-shadow:0 2px 0 #fff;color:var(--violet);pointer-events:none;animation:rise .8s ease-out forwards;z-index:6}
+.plus.minus{color:#e0577f}
+@keyframes rise{to{transform:translateY(-60px);opacity:0}}
+.screen{position:absolute;inset:0;z-index:8;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:.8rem;padding:2rem;background:rgba(255,255,255,.55);backdrop-filter:blur(6px)}
+.screen[hidden]{display:none}
+.screen h3{font-size:clamp(1.5rem,5vw,2.2rem);font-weight:900}
+.screen p{color:var(--soft);font-weight:700;max-width:34ch}
+.screen .tl{display:flex;gap:.5rem;justify-content:center;margin:.3rem 0}
+.screen .tl span{width:54px;height:54px;border-radius:18px;display:grid;place-items:center;font-family:var(--disp);font-weight:900;font-size:1.5rem;background:var(--c);animation:hop 2.4s ease-in-out infinite;animation-delay:calc(var(--i)*.15s)}
+.screen .res{font-family:var(--disp);font-weight:900;font-size:clamp(3rem,10vw,4.5rem);line-height:1;color:var(--violet)}
+.gtabs{display:flex;gap:.5rem;margin-top:1.8rem;flex-wrap:wrap}
+.gtab{border:0;cursor:pointer;font-weight:800;padding:.8rem 1.3rem;border-radius:99px;background:#fff;color:var(--muted);box-shadow:0 0 0 2px var(--line) inset;transition:transform .25s var(--spring)}
+.gtab:hover{transform:translateY(-2px)}
+.gtab[aria-selected="true"]{background:var(--ink);color:#fff;box-shadow:none}
+.arena{margin-top:1.2rem!important}
+.board{position:relative;margin-top:1.2rem;min-height:clamp(440px,70vh,560px);border-radius:40px;padding:clamp(1.2rem,3vw,2rem);overflow:hidden;
+  background:linear-gradient(180deg,#fff7dc,#ffeef3);box-shadow:0 0 0 8px #fff,0 40px 70px -30px rgba(42,37,80,.35);display:flex;flex-direction:column;max-width:720px;margin-left:auto;margin-right:auto}
+.board[hidden],.arena[hidden]{display:none}
+.g-top{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.prog{display:grid;grid-template-columns:repeat(5,auto);gap:5px}
+.prog i{width:clamp(18px,5vw,26px);height:clamp(18px,5vw,26px);display:grid;place-items:center;font-style:normal;font-size:.75rem;border-radius:8px;background:rgba(255,255,255,.8);transition:background .3s,transform .4s var(--spring)}
+.prog i.cur{background:var(--lilac);transform:scale(1.15)}
+.prog i.ok{background:var(--butter)}.prog i.ok::after{content:"★";color:#c48a00}
+.prog i.miss{background:var(--pink)}
+.score{font-family:var(--disp);font-weight:800;white-space:nowrap;background:#fff;border-radius:99px;padding:.35rem .8rem}
+.q-pic{width:clamp(130px,36vw,170px);aspect-ratio:1;border-radius:50%;margin:1rem auto .6rem;display:grid;place-items:center;font-size:clamp(4rem,12vw,5.6rem);background:#fff;box-shadow:0 12px 30px rgba(42,37,80,.1)}
+.q-pic.show{animation:jelly .6s ease}
+.q-word{text-align:center;font-family:var(--disp);font-weight:800;font-size:1.35rem;min-height:1.7em}
+.q-word .ltr{color:var(--violet)}
+.q-ask{text-align:center;color:var(--soft);font-weight:700}
+.q-tip{text-align:center;color:var(--violet);font-weight:700;font-size:.92rem;min-height:2.8em;margin:.4rem auto .6rem;max-width:44ch}
+.opts{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-top:auto}
+.opt{height:clamp(84px,22vw,104px);border:0;border-radius:26px;cursor:pointer;font-family:var(--disp);font-weight:900;font-size:clamp(2rem,7vw,2.8rem);background:var(--c);box-shadow:inset 0 -7px 0 rgba(42,37,80,.12);transition:transform .25s var(--spring)}
+.opt:hover{transform:translateY(-4px) rotate(-3deg)}
+.opt.right{background:var(--mint)!important;animation:jelly .6s ease;box-shadow:0 0 0 4px #fff,0 0 0 8px #3bb98a}
+.opt.wrong{animation:shake .45s ease;opacity:.4}
+.opt:disabled{cursor:default}
+.end{position:absolute;inset:0;background:linear-gradient(180deg,#fff7dc,#ffeef3);display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;gap:.6rem}
+.end.show{display:flex;animation:up .6s var(--spring)}
+.end .big{font-size:4rem}
+.end h3{font-size:1.7rem;font-weight:900}
+.end .stars{font-size:1.7rem;letter-spacing:3px;color:#f2b33d}
+.end p{color:var(--soft);font-weight:700;max-width:32ch}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:100}
+
+/* ===== SIGNS ===== */
+.tabs{display:flex;gap:.5rem;overflow-x:auto;margin:2rem 0 1.2rem;padding:4px 2px 8px;scrollbar-width:none}
+.tab{flex:none;border:0;padding:.8rem 1.25rem;border-radius:99px;cursor:pointer;background:#f7f6fc;color:var(--muted);font-weight:800;transition:transform .25s var(--spring),background .2s}
+.tab:hover{transform:translateY(-2px)}
+.tab[aria-selected="true"]{color:var(--ink);background:var(--c)}
+.panel{display:none;gap:1rem}
+.panel.active{display:grid}
+@media(min-width:760px){.panel.active{grid-template-columns:repeat(3,1fr)}}
+.panel div{position:relative;border-radius:28px 28px 28px 6px;padding:1.4rem;background:var(--c);font-weight:700;animation:up .55s var(--spring) both}
+.panel div:nth-child(2){animation-delay:.08s}.panel div:nth-child(3){animation-delay:.16s}
+.panel div em{display:block;font-style:normal;font-size:1.7rem;margin-bottom:.4rem}
+.note{font-size:.88rem;color:var(--muted);margin-top:1rem}
+
+/* ===== TIMELINE ===== */
+.tl-sec{background:var(--lilac-l)}
+.timeline{list-style:none;position:relative;margin-top:2.8rem;display:grid;gap:1.4rem;padding-left:44px}
+.timeline::before,.timeline .fill{content:"";position:absolute;left:17px;top:6px;bottom:6px;width:4px;border-radius:4px;background:#fff}
+.timeline .fill{background:linear-gradient(var(--lilac),var(--mint),var(--butter),var(--pink));transform-origin:top;transform:scaleY(var(--p,0));transition:transform .15s linear}
+.timeline li{position:relative;background:#fff;border-radius:26px;padding:1.3rem 1.4rem}
+.timeline li::before{content:"";position:absolute;left:-36px;top:1.5rem;width:22px;height:22px;border-radius:50%;background:var(--c);box-shadow:0 0 0 5px var(--lilac-l)}
+.timeline .tm{display:inline-block;font-size:.8rem;font-weight:800;background:var(--c);border-radius:99px;padding:.2rem .7rem;margin-bottom:.5rem}
+.timeline h3{font-size:1.1rem;margin-bottom:.25rem}
+.timeline p{color:var(--muted);font-size:.97rem}
+@media(min-width:900px){
+  .timeline{padding-left:0}
+  .timeline::before,.timeline .fill{left:50%;margin-left:-2px}
+  .timeline li{width:calc(50% - 44px)}
+  .timeline li:nth-child(odd){margin-left:auto}
+  .timeline li::before{left:auto;right:calc(100% + 33px)}
+  .timeline li:nth-child(even){}
+  .timeline li:nth-child(even)::before{right:auto;left:calc(100% + 33px)}
+}
+
+/* ===== PRICES ===== */
+.price-list{margin-top:2.4rem;display:grid;gap:14px}
+@media(min-width:800px){.price-list{grid-template-columns:1fr 1fr}}
+.pr{display:grid;grid-template-columns:auto 1fr auto;gap:.2rem 1rem;align-items:center;padding:1.3rem 1.4rem;border-radius:26px;border:2px solid var(--line);transition:border-color .3s,transform .3s var(--spring)}
+.pr:hover{border-color:var(--c);transform:translateY(-3px)}
+.pr .e{grid-row:1/3;width:52px;height:52px;border-radius:50%;background:var(--c);display:grid;place-items:center;font-size:1.5rem}
+.pr h3{font-size:1.02rem}
+.pr p{grid-column:2;color:var(--soft);font-size:.92rem}
+.pr .amt{grid-row:1/3;grid-column:3;text-align:right;font-family:var(--disp);font-weight:900;font-size:1.55rem;line-height:1.1}
+.pr .amt small{display:block;font-family:var(--body);font-size:.8rem;font-weight:700;color:var(--soft)}
+
+/* ===== REVIEWS ===== */
+.rev-wrap{position:relative;margin-top:2.4rem}
+.rev{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 2px 40px;scrollbar-width:none;scroll-behavior:smooth}
+.rev>div{flex:0 0 min(86%,380px);scroll-snap-align:start;position:relative;border-radius:30px;padding:1.7rem;background:var(--c)}
+.rev>div::after{content:"";position:absolute;left:34px;bottom:-22px;width:36px;height:24px;background:var(--c);clip-path:polygon(0 0,100% 0,0 100%)}
+.rev .st{color:#f2b33d;letter-spacing:3px;margin-bottom:.6rem}
+.rev p{margin-bottom:1rem}
+.rev .who{font-weight:800;font-size:.92rem}
+.tag{font-size:.72rem;font-weight:800;background:#fff;padding:.12rem .5rem;border-radius:6px;margin-left:.3rem}
+.rev-nav{display:flex;gap:.5rem}
+.rev-nav button{width:50px;height:50px;border-radius:50%;border:2px solid var(--line);background:#fff;cursor:pointer;font-size:1.2rem;font-weight:800;transition:transform .2s var(--spring),border-color .2s}
+.rev-nav button:hover{transform:scale(1.08);border-color:var(--lilac)}
+.rev-top{display:flex;justify-content:space-between;align-items:end;gap:1rem;flex-wrap:wrap}
+
+/* ===== FAQ ===== */
+.faq-grid{display:grid;gap:2rem}
+@media(min-width:1000px){.faq-grid{grid-template-columns:.8fr 1.2fr;gap:4rem}}
+.faq{display:grid;gap:.65rem}
+details{border-radius:22px;background:#f7f6fc;transition:background .3s}
+details[open]{background:var(--butter-l)}
+summary{list-style:none;cursor:pointer;padding:1.15rem 1.4rem;font-weight:800;display:flex;justify-content:space-between;gap:1rem;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";flex:none;width:34px;height:34px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:1.3rem;transition:transform .35s var(--spring)}
+details[open] summary::after{transform:rotate(135deg)}
+details p{padding:0 1.4rem 1.3rem;color:var(--soft);animation:up .4s ease both}
+
+/* ===== CONTACT ===== */
+.contact{background:linear-gradient(160deg,var(--sky-l),var(--lilac-l) 55%,var(--pink-l))}
+.contact-grid{display:grid;gap:1.4rem;margin-top:2.4rem}
+@media(min-width:1000px){.contact-grid{grid-template-columns:.9fr 1.1fr}}
+.info,.form{background:#fff;border-radius:34px;padding:1.8rem}
+.info-row{display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:center;margin-bottom:1.1rem}
+.dot{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--c)}
+.dot svg{width:22px;height:22px}
+.info-row b{display:block}.info-row span{color:var(--muted);font-size:.94rem}
+.map{margin-top:.6rem;border-radius:24px;height:180px;position:relative;overflow:hidden;background:var(--mint-l)}
+.map svg{position:absolute;inset:0;width:100%;height:100%}
+.pin{position:absolute;left:50%;top:44%;width:26px;height:26px;border-radius:50% 50% 50% 0;background:var(--violet);transform:translate(-50%,-50%) rotate(-45deg);animation:pinb 1.6s ease-in-out infinite}
+.pin::after{content:"";position:absolute;inset:8px;border-radius:50%;background:#fff}
+@keyframes pinb{50%{transform:translate(-50%,-80%) rotate(-45deg)}}
+label{display:block;font-weight:700;font-size:.9rem;margin:0 0 .35rem}
+input,select,textarea{width:100%;font:inherit;padding:.9rem 1.1rem;border-radius:18px;border:2px solid var(--line);background:#fbfaff;margin-bottom:1rem;color:var(--ink);transition:border-color .2s,box-shadow .2s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--violet);background:#fff;box-shadow:0 0 0 5px var(--lilac-l)}
+.row2{display:grid;gap:0 1rem}@media(min-width:560px){.row2{grid-template-columns:1fr 1fr}}
+.ok{display:none;background:var(--mint-l);padding:1rem;border-radius:16px;font-weight:700;margin-top:1rem}
+.ok.show{display:block;animation:up .5s var(--spring)}
+
+footer{padding:70px 0 28px;font-size:.95rem;color:var(--muted)}
+.foot{display:grid;gap:2rem}
+@media(min-width:800px){.foot{grid-template-columns:1.4fr 1fr 1fr}}
+footer h4{font-family:var(--disp);color:var(--ink);font-size:.95rem;margin-bottom:.7rem}
+footer a{text-decoration:none}footer a:hover{color:var(--violet)}
+footer ul{list-style:none;display:grid;gap:.35rem}
+.copy{border-top:2px solid var(--line);margin-top:2.4rem;padding-top:1.2rem;display:flex;flex-wrap:wrap;justify-content:space-between;gap:.6rem;font-size:.85rem}
+.callbar{position:fixed;bottom:0;left:0;right:0;z-index:60;display:grid;grid-template-columns:1fr 1.3fr;gap:.6rem;padding:.7rem .7rem calc(.7rem + env(safe-area-inset-bottom));background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-top:1px solid var(--line)}
+.callbar .btn{padding:.85rem}
+@media(min-width:900px){.callbar{display:none}}
+</style>
+</head>
+<body>
+
+<div class="demo">Демо версия: имената, текстовете и цените са примерни</div>
+
+<header id="hdr">
+  <div class="wrap nav">
+    <a href="#top" class="logo" aria-label="Думичка, начало">
+      <span class="logo-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+      <span><b>Думичка</b><small>логопедичен кабинет</small></span>
+    </a>
+    <ul class="menu">
+      <li><a href="#uslugi">Услуги</a></li>
+      <li><a href="#za-men">За мен</a></li>
+      <li><a href="#igra">Игра</a></li>
+      <li><a href="#priznaci">Кога да дойдете</a></li>
+      <li><a href="#ceni">Цени</a></li>
+      <li><a href="#kontakti">Контакти</a></li>
+    </ul>
+    <a href="#kontakti" class="btn btn-main">Запиши час</a>
+    <button class="burger" aria-label="Меню" aria-expanded="false" id="burger"><span></span></button>
+  </div>
+  <nav class="mobile-menu" id="mmenu">
+    <a href="#uslugi" style="--c:var(--lilac)"><i></i>Услуги</a><a href="#za-men" style="--c:var(--mint)"><i></i>За мен</a>
+    <a href="#igra" style="--c:var(--butter)"><i></i>Игра</a><a href="#priznaci" style="--c:var(--sky)"><i></i>Кога да дойдете</a>
+    <a href="#ceni" style="--c:var(--pink)"><i></i>Цени</a><a href="#kontakti" style="--c:var(--peach)"><i></i>Контакти</a>
+  </nav>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hello" aria-hidden="true">
+      <span style="--c:var(--lilac);--i:0">Л</span><span style="--c:var(--sky);--i:1">О</span><span style="--c:var(--mint);--i:2">Г</span><span style="--c:var(--butter);--i:3">О</span><span style="--c:var(--peach);--i:4">П</span><span style="--c:var(--pink);--i:5">Е</span><span style="--c:var(--lilac);--i:6">Д</span>
+    </div>
+    <h1>Всяка дума звучи по-уверено</h1>
+    <p class="lead">Логопедична терапия за деца и възрастни в София. Работим в игра, в спокойна обстановка и с план, който родителите разбират.</p>
+    <div class="cta">
+      <a href="#kontakti" class="btn btn-main">Запиши консултация</a>
+      <a href="tel:+359888123456" class="btn btn-ghost"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>0888 123 456</a>
+    </div>
+  </div>
+  <div class="frame">
+    <div class="photo"><div class="ph-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-8 8"/></svg>Снимка на кабинета</div></div>
+    <button class="mag m1" data-w="рак, роза, ракета">Р</button>
+    <button class="mag m2" data-w="шапка, шише, мишка">Ш</button>
+    <button class="mag m3" data-w="лъв, лале, лодка">Л</button>
+    <button class="mag m4" data-w="слънце, сок, сова">С</button>
+    <button class="mag m5" data-w="жаба, жираф, жълъд">Ж</button>
+    <button class="mag m6" data-w="чаша, чадър, часовник">Ч</button>
+    <div class="say" id="say" aria-live="polite">👆 Натисни някоя буква</div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="uslugi">
+  <div class="wrap">
+    <h2 class="rv">С какво мога да помогна</h2>
+    <p class="lead rv" style="--i:1">Изберете затруднението, за да видите как работим с него.</p>
+    <div class="sel rv" style="--i:2">
+      <div class="sel-list" role="tablist" id="selList"></div>
+      <div class="sel-panel" id="selPanel" role="tabpanel"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="za-men">
+  <div class="wrap about-grid">
+    <div class="ring rv">
+      <svg class="txt" viewBox="0 0 300 300" aria-hidden="true"><defs><path id="circ" d="M150,150 m-132,0 a132,132 0 1,1 264,0 a132,132 0 1,1 -264,0"/></defs>
+        <text><textPath href="#circ">МАРИЯ ПЕТРОВА ✦ ЛОГОПЕД ✦ СОФИЯ ✦ ДЕЦА И ВЪЗРАСТНИ ✦ </textPath></text></svg>
+      <div class="ph">Портретна снимка</div>
+      <div class="st" style="--c:var(--lilac);top:6%;right:8%">💬</div>
+      <div class="st" style="--c:var(--pink);bottom:8%;left:4%;animation-delay:-2s">❤️</div>
+    </div>
+    <div>
+      <h2 class="rv">Здравейте, аз съм Мария Петрова</h2>
+      <p class="lead rv" style="--i:1">Логопед с над 10 години опит. Най-добрите резултати идват, когато детето се чувства спокойно, а родителите знаят какво се случва на всяка стъпка.</p>
+      <div class="stats rv" style="--i:2">
+        <div><b data-count="10" data-suffix="+">10+</b><span>години опит</span></div>
+        <div><b data-count="500" data-suffix="+">500+</b><span>деца</span></div>
+        <div><b data-count="4000" data-suffix="+">4 000+</b><span>занимания</span></div>
+      </div>
+      <ul class="creds rv" style="--i:3">
+        <li style="--c:var(--lilac)">Магистър по логопедия, [университет]</li>
+        <li style="--c:var(--sky)">Член на [асоциация]</li>
+        <li style="--c:var(--butter)">[метод 1], [метод 2]</li>
+        <li style="--c:var(--pink)">На място и онлайн</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- GAME -->
+<section class="game-sec" id="igra">
+  <div class="wrap">
+    <div class="game-head">
+      <div>
+        <h2 class="rv">Игри за малките говорители</h2>
+        <p class="lead rv" style="--i:1" id="gdesc">Пукай само балончетата с думи, които започват със звука горе. Кажи думата на глас, преди да я пукнеш!</p>
+      </div>
+    </div>
+    <div class="gtabs rv" style="--i:2" role="tablist">
+      <button class="gtab" role="tab" aria-selected="true" data-g="arena">🎈 Хвани звука</button>
+      <button class="gtab" role="tab" aria-selected="false" data-g="cards">🃏 Близки звуци</button>
+    </div>
+    <div class="arena rv" style="--i:2" id="arena">
+      <div class="cloud" style="width:120px;height:34px;top:22%;animation-duration:46s;animation-delay:-10s"></div>
+      <div class="cloud" style="width:80px;height:24px;top:58%;animation-duration:38s;animation-delay:-25s"></div>
+      <div class="hud">
+        <div>Звук: <span class="target" id="tgt">Р</span></div>
+        <div><span id="pts">0</span> 🎈</div>
+        <div class="hearts" id="hearts">❤️❤️❤️</div>
+      </div>
+      <div class="timebar"><i id="tbar"></i></div>
+      <div class="screen" id="startScr">
+        <div class="tl"><span style="--c:var(--lilac);--i:0">Р</span><span style="--c:var(--mint);--i:1">Ш</span><span style="--c:var(--butter);--i:2">Л</span><span style="--c:var(--pink);--i:3">С</span></div>
+        <h3>Готови ли сте?</h3>
+        <p>30 секунди. Три сърчица. Пукай балончетата с правилния звук.</p>
+        <button class="btn btn-main" id="play">Започни играта</button>
+      </div>
+      <div class="screen" id="endScr" hidden>
+        <p id="endLbl">Хвана</p>
+        <div class="res" id="endPts">0</div>
+        <h3 id="endTitle">Браво!</h3>
+        <button class="btn btn-main" id="again">Играй отново</button>
+      </div>
+    </div>
+    <div class="board" id="cards" hidden>
+      <div class="g-top"><div class="prog" id="prog"></div><div class="score" id="score">0 ★</div></div>
+      <div class="q-pic" id="qpic">🐸</div>
+      <div class="q-word" id="qword">&nbsp;</div>
+      <div class="q-ask" id="qask">Кажи думата на глас. С кой звук започва?</div>
+      <div class="q-tip" id="qtip"></div>
+      <div class="opts" id="opts"></div>
+      <div class="end" id="cend">
+        <div class="big">🏆</div>
+        <h3 id="cTitle">Браво!</h3>
+        <div class="stars" id="cStars"></div>
+        <p id="cText"></p>
+        <button class="btn btn-main" id="cagain">Играй отново</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIGNS -->
+<section id="priznaci">
+  <div class="wrap">
+    <h2 class="rv">Кога да потърсите логопед</h2>
+    <p class="lead rv" style="--i:1">Всяко дете се развива със собствено темпо. Ако разпознавате някой от тези знаци, една консултация ще ви даде яснота.</p>
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="true" data-p="p1" style="--c:var(--mint)">🧸 2–3 години</button>
+      <button class="tab" role="tab" aria-selected="false" data-p="p2" style="--c:var(--butter)">🎨 3–5 години</button>
+      <button class="tab" role="tab" aria-selected="false" data-p="p3" style="--c:var(--sky)">🎒 Училище</button>
+      <button class="tab" role="tab" aria-selected="false" data-p="p4" style="--c:var(--pink)">🙂 Възрастни</button>
+    </div>
+    <div class="panel active" id="p1" style="--c:var(--mint-l)">
+      <div><em>💬</em>Казва много малко думи или не ги свързва в кратки фрази.</div>
+      <div><em>👂</em>Трудно разбира прости молби и въпроси.</div>
+      <div><em>👉</em>Сочи или дърпа, вместо да каже какво иска.</div>
+    </div>
+    <div class="panel" id="p2" style="--c:var(--butter-l)">
+      <div><em>🤔</em>Непознатите трудно разбират какво казва.</div>
+      <div><em>🔤</em>Пропуска или заменя много звуци.</div>
+      <div><em>🔁</em>Запъва се, повтаря срички или се напряга, когато говори.</div>
+    </div>
+    <div class="panel" id="p3" style="--c:var(--sky-l)">
+      <div><em>📖</em>Бавно научава буквите или чете с много грешки.</div>
+      <div><em>✏️</em>Разменя, пропуска или обръща букви при писане.</div>
+      <div><em>🧩</em>Трудно преразказва или подрежда мислите си.</div>
+    </div>
+    <div class="panel" id="p4" style="--c:var(--pink-l)">
+      <div><em>🏥</em>Затруднения в говора след инсулт или травма.</div>
+      <div><em>💼</em>Заекване, което пречи в работата и ежедневието.</div>
+      <div><em>🎙️</em>Неясна дикция или бързо уморяване на гласа.</div>
+    </div>
+    <p class="note">Информацията е ориентировъчна и не замества консултация със специалист.</p>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="tl-sec">
+  <div class="wrap">
+    <h2 class="rv">Как протича работата</h2>
+    <ol class="timeline" id="timeline">
+      <span class="fill" id="tlfill" aria-hidden="true"></span>
+      <li class="rv" style="--c:var(--lilac)"><span class="tm">Ден 1</span><h3>Обаждане</h3><p>Разказвате накратко какво ви притеснява и уговаряме удобен час.</p></li>
+      <li class="rv" style="--c:var(--mint)"><span class="tm">Първа среща</span><h3>Консултация и оценка</h3><p>Запознаваме се, оценявам говора и обсъждаме резултатите заедно.</p></li>
+      <li class="rv" style="--c:var(--butter)"><span class="tm">Същата седмица</span><h3>План за работа</h3><p>Определяме цели, колко често да идвате и задачи за вкъщи.</p></li>
+      <li class="rv" style="--c:var(--pink)"><span class="tm">Всяка седмица</span><h3>Занимания и напредък</h3><p>Работим в игра и редовно ви казвам как върви напредъкът.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- PRICES -->
+<section id="ceni">
+  <div class="wrap">
+    <h2 class="rv">Цени</h2>
+    <div class="price-list">
+      <div class="pr rv" style="--c:var(--lilac);--i:0"><span class="e">👋</span><h3>Първа консултация</h3><p>Запознаване, оценка и препоръки</p><div class="amt">30 €<small>60 минути</small></div></div>
+      <div class="pr rv" style="--c:var(--mint);--i:1"><span class="e">🧩</span><h3>Индивидуално занимание</h3><p>В кабинета, по индивидуален план</p><div class="amt">25 €<small>45 минути</small></div></div>
+      <div class="pr rv" style="--c:var(--butter);--i:2"><span class="e">⭐</span><h3>Пакет от 8 занимания</h3><p>Два пъти седмично, с отстъпка</p><div class="amt">180 €<small>на месец</small></div></div>
+      <div class="pr rv" style="--c:var(--sky);--i:3"><span class="e">💻</span><h3>Онлайн занимание</h3><p>За по-големи деца и възрастни</p><div class="amt">22 €<small>45 минути</small></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="rev-top">
+      <h2 class="rv" style="margin:0">Какво казват родителите</h2>
+      <div class="rev-nav"><button id="rp" aria-label="Предишен отзив">←</button><button id="rn" aria-label="Следващ отзив">→</button></div>
+    </div>
+    <div class="rev-wrap">
+      <div class="rev" id="rev">
+        <div style="--c:var(--pink-l)"><div class="st">★★★★★</div><p>Тук ще стои истински отзив от Google, например за промяната при детето след няколко месеца.</p><div class="who">Име на родител <span class="tag">примерен</span></div></div>
+        <div style="--c:var(--mint-l)"><div class="st">★★★★★</div><p>Втори отзив, за атмосферата в кабинета и подхода към децата.</p><div class="who">Име на родител <span class="tag">примерен</span></div></div>
+        <div style="--c:var(--butter-l)"><div class="st">★★★★★</div><p>Трети отзив, например от възрастен клиент или за онлайн заниманията.</p><div class="who">Име на клиент <span class="tag">примерен</span></div></div>
+        <div style="--c:var(--sky-l)"><div class="st">★★★★★</div><p>Четвърти отзив, например за това колко лесно е било записването.</p><div class="who">Име на родител <span class="tag">примерен</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="vaprosi" style="padding-top:0">
+  <div class="wrap faq-grid">
+    <div>
+      <h2 class="rv">Често задавани въпроси</h2>
+      <p class="lead rv" style="--i:1">Не намирате отговор? Обадете се, ще ви отговоря с радост.</p>
+    </div>
+    <div class="faq rv" style="--i:1">
+      <details><summary>От каква възраст може да дойде детето?</summary><p>Консултация може да се направи още около 2-годишна възраст, ако имате притеснения. Колкото по-рано, толкова по-добре.</p></details>
+      <details><summary>Колко време продължава терапията?</summary><p>Зависи от затруднението. След оценката ще ви дам ориентир за продължителността.</p></details>
+      <details><summary>Може ли родителят да присъства?</summary><p>Да. На първата среща присъствието ви е задължително, а след това решаваме заедно.</p></details>
+      <details><summary>Имате ли онлайн занимания?</summary><p>Да, за част от случаите, особено при по-големи деца и възрастни.</p></details>
+      <details><summary>Трябва ли ми направление?</summary><p>Не, можете да се обадите директно и да запишете час.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="kontakti">
+  <div class="wrap">
+    <h2 class="rv">Запишете час</h2>
+    <p class="lead rv" style="--i:1">Обадете се или оставете съобщение. Ще ви върна отговор в рамките на деня.</p>
+    <div class="contact-grid">
+      <div class="info rv">
+        <div class="info-row"><div class="dot" style="--c:var(--lilac-l)"><svg viewBox="0 0 24 24" fill="none" stroke="#2a2550" stroke-width="2" stroke-linecap="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></div><div><b>0888 123 456</b><span>Обаждане или Viber</span></div></div>
+        <div class="info-row"><div class="dot" style="--c:var(--mint-l)"><svg viewBox="0 0 24 24" fill="none" stroke="#2a2550" stroke-width="2" stroke-linecap="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div><div><b>ул. „Примерна“ 12, София</b><span>[квартал], близо до [ориентир]</span></div></div>
+        <div class="info-row"><div class="dot" style="--c:var(--butter-l)"><svg viewBox="0 0 24 24" fill="none" stroke="#2a2550" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div><b>Пон – Пет, 9:00 – 19:00</b><span>Събота по уговорка</span></div></div>
+        <div class="map" aria-label="Тук ще бъде картата от Google Maps">
+          <svg viewBox="0 0 400 180" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect x="40" y="20" width="90" height="60" rx="12" fill="#d3f2e6"/><rect x="270" y="100" width="110" height="60" rx="12" fill="#d3f2e6"/>
+            <circle cx="320" cy="40" r="26" fill="#cfe7ff"/>
+            <path d="M0 110 C 120 90, 200 130, 400 80" stroke="#fff" stroke-width="16" fill="none"/>
+            <path d="M210 0 L 180 180" stroke="#fff" stroke-width="12"/>
+          </svg>
+          <div class="pin"></div>
+        </div>
+      </div>
+      <form class="form rv" style="--i:1" id="form">
+        <div class="row2">
+          <div><label for="n">Вашето име</label><input id="n" required placeholder="Име и фамилия"></div>
+          <div><label for="t">Телефон</label><input id="t" type="tel" required placeholder="08…"></div>
+        </div>
+        <div class="row2">
+          <div><label for="w">За кого е?</label><select id="w"><option>Дете</option><option>Възрастен</option></select></div>
+          <div><label for="a">Възраст</label><input id="a" placeholder="напр. 4 години"></div>
+        </div>
+        <label for="m">Какво ви притеснява?</label>
+        <textarea id="m" rows="4" placeholder="Накратко, по желание"></textarea>
+        <button class="btn btn-main" style="width:100%">Изпрати запитване</button>
+        <div class="ok" id="ok">🎉 Запитването е изпратено. Ще се свържа с вас скоро. (В демото формата не изпраща нищо.)</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a href="#top" class="logo"><span class="logo-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span><b>Думичка</b><small>логопедичен кабинет</small></span></a>
+        <p style="margin-top:.9rem;max-width:34ch">Логопедична терапия за деца и възрастни в София.</p>
+      </div>
+      <div><h4>Страници</h4><ul><li><a href="#uslugi">Услуги</a></li><li><a href="#za-men">За мен</a></li><li><a href="#igra">Игра</a></li><li><a href="#ceni">Цени</a></li><li><a href="#kontakti">Контакти</a></li></ul></div>
+      <div><h4>Връзка</h4><ul><li>0888 123 456</li><li>ул. „Примерна“ 12, София</li><li><a href="#">Facebook</a></li><li><a href="#">Instagram</a></li></ul></div>
+    </div>
+    <div class="copy"><span>© 2026 Думичка</span><span>Сайт: <a href="https://velkoww.com">velkoww.com</a></span></div>
+  </div>
+</footer>
+
+<div class="callbar">
+  <a href="tel:+359888123456" class="btn btn-ghost">Обади се</a>
+  <a href="#kontakti" class="btn btn-main">Запиши час</a>
+</div>
+<canvas id="confetti"></canvas>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const COLS=['--lilac','--sky','--mint','--butter','--peach','--pink'];
+
+/* header/menu */
+const hdr=$('#hdr');
+const burger=$('#burger'),mm=$('#mmenu');
+burger.onclick=()=>{const o=mm.classList.toggle('open');burger.setAttribute('aria-expanded',o)};
+$$('#mmenu a').forEach(a=>a.onclick=()=>{mm.classList.remove('open');burger.setAttribute('aria-expanded',false)});
+
+/* ---- magnet letters ---- */
+const say=$('#say');
+$$('.mag').forEach(m=>m.onclick=()=>{$$('.mag').forEach(x=>x.classList.remove('on'));void m.offsetWidth;m.classList.add('on');
+  say.innerHTML=`<b>${m.textContent}</b> като ${m.dataset.w}`;say.classList.remove('pulse');void say.offsetWidth;say.classList.add('pulse')});
+
+/* ---- services selector ---- */
+const ic={
+lips:'<svg viewBox="0 0 40 40"><path d="M5 20c6-9 12-9 15-5 3-4 9-4 15 5-6 9-24 9-30 0z" fill="#ff8fb1"/><path d="M8 20q12 4 24 0" stroke="#2a2550" stroke-width="2" fill="none" stroke-linecap="round"/></svg>',
+sprout:'<svg viewBox="0 0 40 40"><path d="M20 34V18" stroke="#2f9e6f" stroke-width="3" stroke-linecap="round"/><path d="M20 20c0-8-6-12-13-11 0 7 5 12 13 11z" fill="#58c695"/><path d="M20 16c0-7 5-10 12-9 0 6-4 10-12 9z" fill="#9fe3c9"/></svg>',
+wave:'<svg viewBox="0 0 40 40" fill="none" stroke-width="3.2" stroke-linecap="round"><path d="M6 14c4-4 8 4 12 0s8 4 12 0" stroke="#7aa9f0"/><path d="M6 21c4-4 8 4 12 0s8 4 12 0" stroke="#5b3fd6"/><path d="M6 28c4-4 8 4 12 0s8 4 12 0" stroke="#7aa9f0"/></svg>',
+book:'<svg viewBox="0 0 40 40"><path d="M20 12c-4-3-9-4-14-3v20c5-1 10 0 14 3z" fill="#ffbfd3"/><path d="M20 12c4-3 9-4 14-3v20c-5-1-10 0-14 3z" fill="#cdbdff"/><path d="M20 12v20" stroke="#2a2550" stroke-width="2"/></svg>',
+chat:'<svg viewBox="0 0 40 40"><rect x="4" y="7" width="22" height="16" rx="6" fill="#a8d5ff"/><path d="M9 23l-2 6 7-6z" fill="#a8d5ff"/><rect x="15" y="15" width="21" height="15" rx="6" fill="#ffe28a"/><path d="M31 30l2 5-7-5z" fill="#ffe28a"/></svg>',
+heart:'<svg viewBox="0 0 40 40"><path d="M20 34S5 25 5 15a8 8 0 0 1 15-4 8 8 0 0 1 15 4c0 10-15 19-15 19z" fill="#ff8fb1"/></svg>'};
+const SVC=[
+ {t:'Неправилно произношение',i:'lips',c:'--lilac',g:'Р',d:'Когато някои звуци се изговарят грешно, пропускат се или се заменят с други.',l:['Звуци като Р, Л, С, Ш, Ж, Ч','Упражнения за език и устни в игра','Задачи за вкъщи за 10 минути на ден'],w:'Най-често деца от 4 до 7 години'},
+ {t:'Забавено говорно развитие',i:'sprout',c:'--mint',g:'Аа',d:'Когато детето говори по-малко от връстниците си или трудно съставя изречения.',l:['Разширяване на речника','Първи фрази и изречения','Съвети как да говорите с детето у дома'],w:'Деца от 2 до 5 години'},
+ {t:'Заекване',i:'wave',c:'--butter',g:'З',d:'Работа върху плавността на речта и увереността при говорене.',l:['Техники за спокойно и плавно говорене','Дишане и темп','Увереност в училище и на работа'],w:'Деца и възрастни'},
+ {t:'Четене и писане',i:'book',c:'--sky',g:'Б',d:'Трудности с буквите, четенето и правописа в училищна възраст.',l:['Звуков анализ и букви','Четене с разбиране','Правопис без сълзи'],w:'Ученици от 1. до 4. клас'},
+ {t:'Комуникация и разбиране',i:'chat',c:'--pink',g:'?!',d:'Подкрепа при аутизъм и други затруднения в общуването.',l:['Разбиране на речта','Общуване в игра','Работа заедно с родителите'],w:'Деца на всяка възраст'},
+ {t:'Възрастни',i:'heart',c:'--peach',g:'Я',d:'Възстановяване на говора след инсулт или травма, работа с гласа и дикцията.',l:['Възстановяване след инсулт','Дикция и глас','Занимания и онлайн'],w:'Възрастни'}];
+const list=$('#selList'),panel=$('#selPanel');
+list.innerHTML=SVC.map((s,i)=>`<button class="sel-btn" role="tab" aria-selected="${i===0}" style="--c:var(${s.c})"><i>${ic[s.i]}</i>${s.t}</button>`).join('');
+function showSvc(i){const s=SVC[i];
+  $$('.sel-btn').forEach((b,j)=>b.setAttribute('aria-selected',j===i));
+  panel.style.setProperty('--c',`var(${s.c})`);
+  panel.innerHTML=`<span class="big" aria-hidden="true">${s.g}</span><div class="inner"><h3>${s.t}</h3><p>${s.d}</p><ul>${s.l.map(x=>`<li>${x}</li>`).join('')}</ul><span class="who">${s.w}</span></div>`;
+  panel.classList.remove('swap');void panel.offsetWidth;panel.classList.add('swap')}
+$$('.sel-btn').forEach((b,i)=>b.onclick=()=>showSvc(i));showSvc(0);
+
+/* ---- reveal + counters ---- */
+function countUp(el){const end=+el.dataset.count,suf=el.dataset.suffix||'',t1=performance.now();
+  const f=t=>{const p=Math.min((t-t1)/1400,1);el.textContent=Math.round(end*(1-Math.pow(1-p,3))).toLocaleString('bg-BG')+suf;if(p<1)requestAnimationFrame(f)};
+  if(!reduce)requestAnimationFrame(f)}
+if('IntersectionObserver' in window){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');
+    e.target.querySelectorAll('[data-count]').forEach(countUp);io.unobserve(e.target)}}),{threshold:.15,rootMargin:'0px 0px -40px 0px'});
+  $$('.rv').forEach(el=>io.observe(el));
+}else $$('.rv').forEach(el=>el.classList.add('in'));
+
+/* timeline progress + header */
+const tl=$('#timeline'),fill=$('#tlfill');
+function onScroll(){hdr.classList.toggle('scrolled',scrollY>10);
+  const r=tl.getBoundingClientRect(),p=(innerHeight*.7-r.top)/r.height;fill.style.setProperty('--p',Math.max(0,Math.min(1,p)))}
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+/* tabs */
+$$('.tab').forEach(t=>t.onclick=()=>{
+  $$('.tab').forEach(x=>x.setAttribute('aria-selected','false'));$$('.panel').forEach(p=>p.classList.remove('active'));
+  t.setAttribute('aria-selected','true');$('#'+t.dataset.p).classList.add('active')});
+
+/* reviews nav */
+const rev=$('#rev');const step=()=>rev.firstElementChild.getBoundingClientRect().width+18;
+$('#rn').onclick=()=>rev.scrollBy({left:step()});$('#rp').onclick=()=>rev.scrollBy({left:-step()});
+
+/* form */
+$('#form').addEventListener('submit',e=>{e.preventDefault();$('#ok').classList.add('show');e.target.reset();burst(innerWidth/2,innerHeight*.6)});
+
+/* confetti */
+const cv=$('#confetti'),cx=cv.getContext('2d');let parts=[],raf=null;
+function size(){cv.width=innerWidth*devicePixelRatio;cv.height=innerHeight*devicePixelRatio;cx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0)}
+size();addEventListener('resize',size);
+const pal=['#cdbdff','#9fe3c9','#ffe28a','#a8d5ff','#ffbfd3','#ffc9a3','#5b3fd6'];
+function burst(x,y,n=60){if(reduce)return;
+  for(let i=0;i<n;i++){const a=Math.random()*Math.PI*2,s=3+Math.random()*7;
+    parts.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-4,r:3+Math.random()*5,c:pal[i%pal.length],rot:Math.random()*6,vr:(Math.random()-.5)*.4,life:0,sh:Math.random()<.5})}
+  if(!raf)raf=requestAnimationFrame(tick)}
+function tick(){cx.clearRect(0,0,innerWidth,innerHeight);
+  parts=parts.filter(p=>p.life<100);
+  for(const p of parts){p.life++;p.vy+=.22;p.vx*=.985;p.x+=p.vx;p.y+=p.vy;p.rot+=p.vr;
+    cx.save();cx.translate(p.x,p.y);cx.rotate(p.rot);cx.globalAlpha=Math.max(0,1-p.life/100);cx.fillStyle=p.c;
+    if(p.sh)cx.fillRect(-p.r,-p.r/2,p.r*2,p.r);else{cx.beginPath();cx.arc(0,0,p.r*.7,0,7);cx.fill()}cx.restore()}
+  raf=parts.length?requestAnimationFrame(tick):null}
+
+/* ---- GAME: Хвани звука ---- */
+const W={
+ 'Р':[['🚀','ракета'],['🌹','роза'],['🐟','риба'],['🦀','рак'],['🤖','робот'],['📻','радио'],['🧤','ръкавица'],['✋','ръка']],
+ 'Л':[['🦁','лъв'],['🍋','лимон'],['🌷','лале'],['⛵','лодка'],['🦊','лисица'],['🥄','лъжица'],['🍭','лизалка'],['🌙','луна'],['🧅','лук']],
+ 'С':[['☀️','слънце'],['🐘','слон'],['🦉','сова'],['🧀','сирене'],['❄️','сняг'],['🧃','сок'],['🧂','сол'],['🥪','сандвич']],
+ 'Ш':[['🎩','шапка'],['🍫','шоколад'],['🧣','шал'],['♟️','шах'],['🍾','шише']],
+ 'Ж':[['🐸','жаба'],['🦒','жираф'],['🌰','жълъд']],
+ 'З':[['🦓','зебра'],['🐰','заек'],['🦷','зъб'],['⭐','звезда'],['🥬','зеле'],['🔔','звънец'],['🌍','земя']],
+ 'Ц':[['🌸','цвете'],['🎪','цирк'],['🎻','цигулка'],['👑','цар']],
+ 'Ч':[['☂️','чадър'],['⌚','часовник'],['🧦','чорап'],['🧄','чесън'],['☕','чаша'],['🍒','череша']],
+ 'К':[['🐱','котка'],['🐄','крава'],['🔑','ключ'],['🏠','къща'],['🐴','кон'],['🐔','кокошка'],['🎸','китара'],['🧺','кошница'],['🦘','кенгуру'],['🐊','крокодил']],
+ 'Г':[['🍄','гъба'],['🍇','грозде'],['🦍','горила'],['🐛','гъсеница']],
+ 'Т':[['⚽','топка'],['🎂','торта'],['🐯','тигър'],['📱','телефон'],['🚜','трактор'],['🎺','тромпет']],
+ 'Д':[['🌳','дърво'],['🐬','делфин'],['🦕','динозавър'],['🌧️','дъжд'],['🍉','диня'],['🍅','домат']],
+ 'Б':[['🍌','банан'],['🎈','балон'],['🍪','бисквита'],['🐂','бик'],['🥁','барабан']],
+ 'П':[['🐝','пчела'],['🐧','пингвин'],['🍕','пица'],['🐥','пиле'],['🦆','патица'],['🦋','пеперуда'],['🍑','праскова']],
+ 'М':[['🐭','мишка'],['🐻','мечка'],['🥕','морков'],['🐒','маймуна'],['🐜','мравка'],['🏍️','мотор']],
+ 'В':[['🚂','влак'],['🐺','вълк'],['💧','вода'],['🏺','ваза']]};
+const KEYS=['Р','Л','С','Ш','Ж','З','Ч','К','Т','П','М'];
+const GNEAR={'Р':['Л'],'Л':['Р'],'С':['Ш','З','Ц'],'Ш':['С','Ж','Ч'],'Ж':['З','Ш'],'З':['С','Ж'],'Ч':['Ц','Ш'],'К':['Т','Г'],'Т':['К','Д'],'П':['Б','В'],'М':['Б','П']};
+const rnd=a=>a[Math.random()*a.length|0];
+const arena=$('#arena'),tgtEl=$('#tgt'),ptsEl=$('#pts'),heartsEl=$('#hearts'),tbar=$('#tbar');
+let G=null;
+function pickWord(target){
+  if(Math.random()<.5)return [...rnd(W[target]),true];
+  const k=Math.random()<.6?rnd(GNEAR[target]):rnd(Object.keys(W).filter(x=>x!==target));
+  return [...rnd(W[k]),false]}
+function spawn(){if(!G||!G.on)return;
+  const [e,w,good]=pickWord(G.t);const b=document.createElement('button');b.className='bub';
+  const s=innerWidth<600?84:104;b.style.setProperty('--s',s+'px');b.style.setProperty('--c',`var(${COLS[Math.random()*6|0]})`);
+  b.innerHTML=`<span>${e}</span>`;b.setAttribute('aria-label',w);
+  const aw=arena.clientWidth,ah=arena.clientHeight;
+  const o={el:b,x:Math.random()*(aw-s),y:ah+10,vy:(innerWidth<600?.9:1.1)+Math.random()*.6+G.speed,ph:Math.random()*6,good,w,dead:false};
+  b.style.left=o.x+'px';b.style.top=o.y+'px';
+  b.addEventListener('pointerdown',ev=>{ev.preventDefault();hit(o)});
+  arena.appendChild(b);G.b.push(o)}
+function floatTxt(x,y,txt,bad){const f=document.createElement('div');f.className='plus'+(bad?' minus':'');f.textContent=txt;f.style.left=Math.max(8,Math.min(x,arena.clientWidth-txt.length*15-10))+'px';f.style.top=y+'px';arena.appendChild(f);setTimeout(()=>f.remove(),800)}
+function hit(o){if(o.dead||!G.on)return;
+  const s=o.el.offsetWidth,r=arena.getBoundingClientRect();
+  if(o.good){o.dead=true;o.el.classList.add('pop');G.pts++;ptsEl.textContent=G.pts;G.speed+=.04;
+    floatTxt(o.x+s/2-30,o.y,'+1 '+o.w);burst(r.left+o.x+s/2,r.top+o.y+s/2,22);setTimeout(()=>o.el.remove(),350);
+    if(G.pts%6===0)nextTarget();
+  }else{o.el.classList.remove('bad');void o.el.offsetWidth;o.el.classList.add('bad');G.lives--;heartsEl.textContent='❤️'.repeat(G.lives)+'🤍'.repeat(3-G.lives);
+    floatTxt(o.x+s/2-30,o.y,o.w,true);if(G.lives<=0)end()}}
+function nextTarget(){const k=KEYS.filter(x=>x!==G.t);G.t=k[Math.random()*k.length|0];tgtEl.textContent=G.t;
+  tgtEl.parentElement.animate([{transform:'scale(1)'},{transform:'scale(1.25)'},{transform:'scale(1)'}],{duration:500})}
+function loop(t){if(!G||!G.on)return;
+  const dt=Math.min(40,t-(G.last||t));G.last=t;G.left-=dt;tbar.style.transform=`scaleX(${Math.max(0,G.left/G.dur)})`;
+  if(G.left<=0)return end();
+  G.acc+=dt;if(G.acc>G.every){G.acc=0;spawn()}
+  for(const o of G.b){if(o.dead)continue;o.y-=o.vy*dt/16;o.ph+=dt/600;
+    o.el.style.transform=`translateX(${Math.sin(o.ph)*14}px)`;o.el.style.top=o.y+'px';
+    if(o.y<-o.el.offsetHeight){o.dead=true;o.el.remove()}}
+  G.b=G.b.filter(o=>!o.dead);requestAnimationFrame(loop)}
+function start(){$$('.bub').forEach(b=>b.remove());$('#startScr').hidden=true;$('#endScr').hidden=true;
+  G={on:true,t:KEYS[Math.random()*KEYS.length|0],pts:0,lives:3,b:[],dur:30000,left:30000,acc:900,every:innerWidth<600?950:780,speed:0,last:0};
+  tgtEl.textContent=G.t;ptsEl.textContent=0;heartsEl.textContent='❤️❤️❤️';requestAnimationFrame(loop)}
+function end(){G.on=false;$$('.bub').forEach(b=>b.disabled=true);
+  $('#endPts').textContent=G.pts;$('#endLbl').textContent=G.pts===1?'Хвана 1 балонче':'Хвана балончета:';
+  $('#endTitle').textContent=G.pts>=15?'Шампион на звуците! 🏆':G.pts>=8?'Супер говорител! 🌟':'Добро начало! 🙂';
+  $('#endScr').hidden=false;const r=arena.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,110)}
+$('#play').onclick=start;$('#again').onclick=start;
+
+/* ---- GAME 2: Близки звуци ---- */
+const NEAR={'Р':['Л','Й'],'Л':['Р','Й'],'С':['Ш','З'],'Ш':['С','Ж'],'Ж':['З','Ш'],'З':['С','Ж'],'Ц':['С','Ч'],'Ч':['Ц','Ш'],
+ 'К':['Т','Г'],'Г':['К','Д'],'Т':['К','Д'],'Д':['Т','Г'],'Б':['П','В'],'П':['Б','Ф'],'В':['Ф','Б']};
+const TIP={
+ 'Р':'Р е от най-трудните звуци. Често се заменя с Л или Й: „либа“ вместо „риба“.',
+ 'Л':'Л и Р се правят с върха на езика, затова лесно се разменят.',
+ 'С':'С е беззвучна, З е звучна. Сложи ръка на гърлото: при З то вибрира.',
+ 'Ш':'При Ш езикът е горе, при С е зад зъбите. Затова децата ги разменят.',
+ 'Ж':'Ж и Ш се казват по един и същ начин, само Ж е звучна.',
+ 'З':'З звучи като пчеличка, а С като спукана гума.',
+ 'Ц':'Ц е като кратко „тС“. Затова децата често я заменят със С.',
+ 'Ч':'Ч е като кратко „тШ“. Обърква се с Ц и с Ш.',
+ 'К':'К и Т често се разменят при малките деца: „тотка“ вместо „котка“.',
+ 'Г':'Г е звучната двойка на К. Понякога децата я заменят с Д.',
+ 'Т':'Т и Д са двойка: Т е беззвучна, Д е звучна. А К понякога я замества.',
+ 'Д':'Д е звучната двойка на Т. При малките деца понякога звучи като Г.',
+ 'Б':'Б и П се правят с устни. Б е звучна, П е беззвучна.',
+ 'П':'П е беззвучната двойка на Б. Ф пък се прави с горните зъби и долната устна.',
+ 'В':'В и Ф се правят с горните зъби и долната устна. В е звучна, Ф е беззвучна.'};
+const CARDS=[
+ ['🚀','ракета'],['🌹','роза'],['🐟','риба'],['🤖','робот'],
+ ['🦁','лъв'],['🍋','лимон'],['⛵','лодка'],['🦊','лисица'],
+ ['☀️','слънце'],['🐘','слон'],['🦉','сова'],['🧃','сок'],
+ ['🎩','шапка'],['🍫','шоколад'],['🧣','шал'],['♟️','шах'],
+ ['🐸','жаба'],['🦒','жираф'],['🌰','жълъд'],
+ ['🦓','зебра'],['🐰','зайче'],['🦷','зъб'],['⭐','звезда'],
+ ['🌸','цвете'],['🎪','цирк'],['🎻','цигулка'],
+ ['☂️','чадър'],['⌚','часовник'],['🧦','чорап'],['🧄','чесън'],
+ ['🐱','котка'],['🐄','крава'],['🔑','ключ'],['🐴','кон'],
+ ['🍄','гъба'],['🍇','грозде'],['🦍','горила'],
+ ['⚽','топка'],['🎂','торта'],['🐯','тигър'],
+ ['🌳','дърво'],['🐬','делфин'],['🦕','динозавър'],
+ ['🍌','банан'],['🎈','балон'],['🍪','бисквита'],
+ ['🐝','пчела'],['🐧','пингвин'],
+ ['🚂','влак'],['🐺','вълк']
+].map(([e,w])=>{const l=w[0].toUpperCase();return [e,w,l,NEAR[l],TIP[l]]});
+const OC=['var(--lilac)','var(--sky)','var(--peach)'];
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const NQ=10;let cq=[],ci=0,cs=0,ct=0;
+const prog=$('#prog'),qpic=$('#qpic'),qword=$('#qword'),qask=$('#qask'),qtip=$('#qtip'),opts=$('#opts'),score=$('#score');
+function cStart(){cq=shuffle(CARDS).slice(0,NQ);ci=0;cs=0;$('#cend').classList.remove('show');
+  prog.innerHTML=Array.from({length:NQ},()=>'<i></i>').join('');score.textContent='0 ★';cShow()}
+function cShow(){const [e,,l,near]=cq[ci];ct=0;
+  [...prog.children].forEach((d,i)=>d.classList.toggle('cur',i===ci));
+  qpic.textContent=e;qpic.classList.remove('show');void qpic.offsetWidth;qpic.classList.add('show');
+  qword.innerHTML='&nbsp;';qtip.textContent='';qask.textContent='Кажи думата на глас. С кой звук започва?';
+  opts.innerHTML=shuffle([l,...near]).map((c,i)=>`<button class="opt" style="--c:${OC[i]}">${c}</button>`).join('');
+  [...opts.children].forEach(b=>b.onclick=()=>cPick(b))}
+function cPick(b){const [,w,l,,tip]=cq[ci];
+  if(b.textContent===l){const first=ct===0;if(first)cs++;
+    b.classList.add('right');[...opts.children].forEach(x=>x.disabled=true);
+    qword.innerHTML=`<span class="ltr">${w[0].toUpperCase()}</span>${w.slice(1)}`;
+    qask.textContent=first?'Браво! Точно така 🎉':'Ето го! Продължаваме 👏';qtip.textContent='💡 '+tip;
+    const d=prog.children[ci];d.classList.remove('cur');d.classList.add(first?'ok':'miss');score.textContent=cs+' ★';
+    const r=b.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,first?50:20);
+    setTimeout(()=>{ci++;ci<NQ?cShow():cEnd()},2600);
+  }else{ct++;b.classList.add('wrong');b.disabled=true;qask.textContent='Почти! Звучат си близко. Опитай пак 🙂'}}
+function cEnd(){$('#cTitle').textContent=cs>=9?'Супер слух!':cs>=6?'Много добре!':'Добро начало!';
+  $('#cStars').textContent='★'.repeat(cs)+'☆'.repeat(NQ-cs);
+  $('#cText').textContent=`Позна ${cs} от ${NQ} звука от първия опит. Близките звуци са най-трудни, затова ги упражняваме в кабинета.`;
+  $('#cend').classList.add('show');const r=$('#cards').getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/3,110)}
+$('#cagain').onclick=cStart;
+
+/* game switcher */
+const GD={arena:'Пукай само балончетата с думи, които започват със звука горе. Кажи думата на глас, преди да я пукнеш!',
+  cards:'Виж картинката, кажи думата и избери първия звук. Внимавай: трите възможности звучат много близко, точно като звуците, които децата най-често объркват.'};
+let cardsStarted=false;
+$$('.gtab').forEach(t=>t.onclick=()=>{
+  $$('.gtab').forEach(x=>x.setAttribute('aria-selected',x===t));
+  const g=t.dataset.g;$('#arena').hidden=g!=='arena';$('#cards').hidden=g!=='cards';$('#gdesc').textContent=GD[g];
+  if(g==='cards'){if(G&&G.on)end();if(!cardsStarted){cardsStarted=true;cStart()}}});
+</script>
+</body>
+</html>
