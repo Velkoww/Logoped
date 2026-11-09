@@ -48,6 +48,7 @@
 [data-theme="dark"] .map svg{opacity:.3}
 [data-theme="dark"] .sel-panel li::before{background:var(--dark)}
 [data-theme="dark"] :is(.demo,.say){background:#0d0b1f}
+[data-theme="dark"] .say::before{border-right-color:#0d0b1f}
 [data-theme="dark"] .gtab[aria-selected="true"]{background:var(--ink);color:var(--bg)}
 [data-theme="dark"] :is(.stats b,.target,.q-word .ltr,.screen .res,.plus){color:var(--accent-t)}
 [data-theme="dark"] .plus{text-shadow:none}
@@ -169,10 +170,32 @@ header.scrolled{box-shadow:0 8px 30px rgba(42,37,80,.07)}
 .m4{background:var(--pink);--r:12deg;--d:.4s;bottom:-24px;right:-18px}
 .m5{background:var(--sky);--r:-14deg;--d:.5s;top:46%;left:-24px}
 .m6{background:var(--peach);--r:5deg;--d:.6s;bottom:-28px;left:22%}
-.say{position:absolute;z-index:4;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);color:#fff;font-weight:700;font-size:.95rem;
-  padding:.7rem 1.2rem;border-radius:18px 18px 18px 4px;white-space:nowrap;max-width:80%;overflow:hidden;text-overflow:ellipsis}
+/* талисман: папагалът Рики */
+.riki{position:absolute;z-index:4;left:50%;bottom:-34px;transform:translateX(-50%);display:flex;align-items:flex-end;gap:.4rem;width:max-content;max-width:94%}
+.riki-bird{width:clamp(70px,19vw,118px);flex:none;border:0;background:none;padding:0;cursor:pointer;animation:rikiIn .9s var(--spring) 1.4s both}
+.riki-bird svg{width:100%;height:auto;overflow:visible;transform-origin:50% 95%;animation:rikiBob 2.8s ease-in-out infinite}
+.riki-bird.hop svg{animation:rikiHop .6s var(--spring)}
+@keyframes rikiIn{from{opacity:0;transform:translateY(40px) scale(.4)}}
+@keyframes rikiBob{0%,100%{transform:rotate(0)}30%{transform:rotate(-4deg)}60%{transform:rotate(3deg) translateY(-2px)}}
+@keyframes rikiHop{30%{transform:translateY(-18px) rotate(-8deg)}60%{transform:translateY(0) scale(1.08,.92)}}
+.riki .eye{animation:blink 4.2s infinite;transform-origin:center;transform-box:fill-box}
+@keyframes blink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+.riki .jaw{transform-origin:2% 20%;transform-box:fill-box}
+.riki.talk .jaw{animation:jawT .18s 5 alternate}
+@keyframes jawT{to{transform:rotate(22deg)}}
+.riki .crest{transform-origin:50% 100%;transform-box:fill-box}
+.riki.talk .crest{animation:crestT .5s ease}
+@keyframes crestT{40%{transform:rotate(-12deg) scaleY(1.15)}}
+.say{position:relative;margin-bottom:clamp(50px,13vw,66px);background:var(--dark);color:#fff;font-weight:700;font-size:.95rem;line-height:1.35;
+  padding:.75rem 1.05rem;border-radius:20px 20px 20px 4px;max-width:min(300px,60vw);animation:rikiIn .8s var(--spring) 1.8s both;box-shadow:0 12px 26px rgba(42,37,80,.25)}
+.say::before{content:"";position:absolute;left:-8px;bottom:8px;border:8px solid transparent;border-right-color:var(--dark);border-left:0}
+.say .go{display:inline-flex;align-items:center;gap:.35rem;margin-top:.55rem;background:var(--butter);color:var(--dark);font-weight:800;font-size:.85rem;text-decoration:none;
+  padding:.45rem .85rem;border-radius:99px;transition:transform .2s var(--spring)}
+.say .go:hover{transform:scale(1.06)}
+@media(max-width:600px){.say{font-size:.82rem;padding:.6rem .85rem}.riki{bottom:-26px}}
 .say b{color:var(--butter);font-family:var(--disp)}
-.say.pulse{animation:jelly .5s ease}
+.say.pulse{animation:sayPop .45s var(--spring)}
+@keyframes sayPop{from{transform:scale(.85);opacity:.4}}
 .wave-old{display:flex;align-items:center;justify-content:center;gap:clamp(3px,.6vw,7px);height:120px;margin:2.6rem auto 0;width:min(1160px,96%);cursor:crosshair;touch-action:pan-y}
 .wave i{flex:1;max-width:14px;border-radius:99px;background:var(--c);height:var(--h,20%);transition:height .35s cubic-bezier(.2,.9,.3,1.2)}
 .wave-hint{font-size:.85rem;font-weight:700;color:var(--muted);margin-top:.4rem}
@@ -461,7 +484,26 @@ footer ul{list-style:none;display:grid;gap:.35rem}
     <button class="mag m2" data-w="шапка, шише, мишка">Ш</button>
     <button class="mag m3" data-w="лъв, лакът, лодка">Л</button>
     <button class="mag m4" data-w="слънце, сок, сова">С</button>
-    <div class="say" id="say" aria-live="polite">👆 Натисни някоя буква</div>
+    <div class="riki" id="riki">
+      <button class="riki-bird" id="rikiBird" aria-label="Папагалът Рики">
+        <svg viewBox="0 0 120 140" aria-hidden="true">
+          <ellipse cx="60" cy="134" rx="30" ry="5" fill="rgba(42,37,80,.15)"/>
+          <path d="M50 104 l-12 30 l16-6z" fill="#a8d5ff"/><path d="M60 106 l0 30 l12-10z" fill="#ffbfd3"/>
+          <ellipse cx="60" cy="86" rx="30" ry="34" fill="#7fd6b3"/>
+          <ellipse cx="64" cy="95" rx="17" ry="22" fill="#fff3c4"/>
+          <path d="M34 72 q-10 24 8 44 q12-14 6-40z" fill="#cdbdff"/>
+          <path d="M37 84 q2 14 8 22" stroke="#b3a0f5" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M52 120 v9 M48 129 h8 M68 120 v9 M64 129 h8" stroke="#f0a070" stroke-width="3.5" stroke-linecap="round"/>
+          <g class="crest"><path d="M50 30 q-14-10-8-22 q5 12 12 18z" fill="#a8d5ff"/><path d="M55 26 q-4-18 8-22 q-3 11 0 20z" fill="#ffbfd3"/><path d="M61 26 q4-18 17-16 q-8 8-11 18z" fill="#cdbdff"/></g>
+          <circle cx="60" cy="50" r="26" fill="#7fd6b3"/>
+          <ellipse cx="76" cy="60" rx="6" ry="4" fill="#ffbfd3"/>
+          <g class="eye"><circle cx="67" cy="45" r="6.5" fill="#2a2550"/><circle cx="69.5" cy="42.5" r="2.3" fill="#fff"/></g>
+          <path class="jaw" d="M80 58 q9 0 11 4 q-6 5-13 1z" fill="#e8874a"/>
+          <path d="M79 45 q16 1 14 18 q-6-7-15-5z" fill="#ffb27a"/>
+        </svg>
+      </button>
+      <div class="say" id="say" aria-live="polite">Здравей! Аз съм Рики 🦜 Натисни някоя буква!</div>
+    </div>
   </div>
 </section>
 
@@ -728,9 +770,15 @@ burger.onclick=()=>{const o=mm.classList.toggle('open');burger.setAttribute('ari
 $$('#mmenu a').forEach(a=>a.onclick=()=>{mm.classList.remove('open');burger.setAttribute('aria-expanded',false)});
 
 /* ---- magnet letters ---- */
-const say=$('#say');
-$$('.mag').forEach(m=>m.onclick=()=>{$$('.mag').forEach(x=>x.classList.remove('on'));void m.offsetWidth;m.classList.add('on');
-  say.innerHTML=`<b>${m.textContent}</b> като ${m.dataset.w}`;say.classList.remove('pulse');void say.offsetWidth;say.classList.add('pulse')});
+const say=$('#say'),riki=$('#riki'),bird=$('#rikiBird');let taps=0;
+const GO='<br><a class="go" href="#igra">🎮 Хайде да поиграем!</a>';
+function rikiSay(html){say.innerHTML=html;say.classList.remove('pulse');void say.offsetWidth;say.classList.add('pulse');
+  riki.classList.remove('talk');void riki.offsetWidth;riki.classList.add('talk');bird.classList.remove('hop');void bird.offsetWidth;bird.classList.add('hop')}
+$$('.mag').forEach(m=>m.onclick=()=>{$$('.mag').forEach(x=>x.classList.remove('on'));void m.offsetWidth;m.classList.add('on');taps++;
+  rikiSay(`<b>${m.textContent}</b> като ${m.dataset.w}!`+(taps>=2?GO:''))});
+const RIKI=['Аз съм папагал, обичам да повтарям думи! Натисни буква 👆','Знаеш ли? Буквата Р е от най-трудните звуци.','Имам две игри за теб!'+GO,'Пукни балончета с правилния звук!'+GO];
+let ri=0;bird.onclick=()=>{rikiSay(RIKI[ri%RIKI.length]);ri++};
+setTimeout(()=>{if(!taps)rikiSay('Хайде, пробвай! Натисни <b>Р</b>, <b>Ш</b>, <b>Л</b> или <b>С</b> 👆')},9000);
 
 /* ---- services selector ---- */
 const ic={
