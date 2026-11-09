@@ -293,7 +293,7 @@ header.scrolled{box-shadow:0 8px 30px rgba(42,37,80,.07)}
 
 /* ===== PRICES ===== */
 .price-list{margin-top:2.4rem;display:grid;gap:14px}
-@media(min-width:800px){.price-list{grid-template-columns:1fr 1fr}}
+@media(min-width:800px){.price-list{grid-template-columns:1fr 1fr}.price-list .pr:last-child:nth-child(odd){grid-column:1/-1}}
 .pr{display:grid;grid-template-columns:auto 1fr auto;gap:.2rem 1rem;align-items:center;padding:1.3rem 1.4rem;border-radius:26px;border:2px solid var(--line);transition:border-color .3s,transform .3s var(--spring)}
 .pr:hover{border-color:var(--c);transform:translateY(-3px)}
 .pr .e{grid-row:1/3;width:52px;height:52px;border-radius:50%;background:var(--c);display:grid;place-items:center;font-size:1.5rem}
@@ -565,7 +565,6 @@ footer ul{list-style:none;display:grid;gap:.35rem}
       <div class="pr rv" style="--c:var(--lilac);--i:0"><span class="e">👋</span><h3>Първа консултация</h3><p>Запознаване, оценка и препоръки</p><div class="amt">30 €<small>60 минути</small></div></div>
       <div class="pr rv" style="--c:var(--mint);--i:1"><span class="e">🧩</span><h3>Индивидуално занимание</h3><p>В кабинета, по индивидуален план</p><div class="amt">25 €<small>45 минути</small></div></div>
       <div class="pr rv" style="--c:var(--butter);--i:2"><span class="e">⭐</span><h3>Пакет от 8 занимания</h3><p>Два пъти седмично, с отстъпка</p><div class="amt">180 €<small>на месец</small></div></div>
-      <div class="pr rv" style="--c:var(--sky);--i:3"><span class="e">💻</span><h3>Онлайн занимание</h3><p>За по-големи деца и възрастни</p><div class="amt">22 €<small>45 минути</small></div></div>
     </div>
   </div>
 </section>
