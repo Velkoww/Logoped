@@ -49,7 +49,7 @@ h3{font-weight:700}
 .lead{color:var(--muted);font-size:1.1rem;max-width:54ch}
 section{padding:90px 0;position:relative}
 :focus-visible{outline:3px solid var(--violet);outline-offset:3px;border-radius:10px}
-.demo{background:var(--ink);color:#fff;text-align:center;font-size:.82rem;padding:.45rem 1rem}
+.demo{background:var(--ink);color:#fff;text-align:center;font-size:.75rem;font-weight:700;padding:.3rem 1rem;letter-spacing:.02em}
 
 /* reveal */
 .rv{opacity:0;transform:translateY(34px);transition:opacity .7s ease,transform .8s var(--spring);transition-delay:calc(var(--i,0)*90ms)}
@@ -364,7 +364,7 @@ footer ul{list-style:none;display:grid;gap:.35rem}
 <!-- lang="" на body: българските форми на шрифтовете (locl) нямат кернинг и оставят дупка след „ъ“ в Safari/iOS. Без език на съдържанието се ползват стандартните кирилски форми. Езикът на сайта остава bg на <html>. -->
 <body lang="">
 
-<div class="demo">Демо версия: имената, текстовете и цените са примерни</div>
+<div class="demo">Това е демо сайт</div>
 
 <header id="hdr">
   <div class="wrap nav">
@@ -566,6 +566,7 @@ footer ul{list-style:none;display:grid;gap:.35rem}
       <div class="pr rv" style="--c:var(--mint);--i:1"><span class="e">🧩</span><h3>Индивидуално занимание</h3><p>В кабинета, по индивидуален план</p><div class="amt">25 €<small>45 минути</small></div></div>
       <div class="pr rv" style="--c:var(--butter);--i:2"><span class="e">⭐</span><h3>Пакет от 8 занимания</h3><p>Два пъти седмично, с отстъпка</p><div class="amt">180 €<small>на месец</small></div></div>
     </div>
+    <p class="note">Цените са примерни.</p>
   </div>
 </section>
 
