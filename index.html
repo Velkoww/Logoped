@@ -59,10 +59,6 @@
 [data-theme="dark"] .ring .ph{color:#5a4330}
 [data-theme="dark"] .photo{box-shadow:0 0 0 8px var(--surface),0 40px 80px -20px rgba(0,0,0,.5)}
 
-/* language button */
-.lang-btn{height:46px;min-width:46px;padding:0 .7rem;border-radius:99px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-family:var(--disp);font-weight:800;font-size:.85rem;flex:none;transition:transform .3s var(--spring),border-color .2s}
-.lang-btn:hover{transform:scale(1.06);border-color:var(--lilac)}
-@media(max-width:400px){.lang-btn,.theme-btn,.burger{width:42px;height:42px;min-width:42px}.nav-r{gap:.4rem}}
 /* Рики долита при скролване */
 .riki-fly{position:fixed;left:12px;bottom:92px;z-index:58;display:flex;align-items:flex-end;gap:.3rem;max-width:calc(100% - 90px);pointer-events:none;
   opacity:0;transform:translate(-120%,-60px) rotate(-12deg);transition:opacity .4s,transform .9s var(--spring)}
@@ -464,7 +460,6 @@ footer ul{list-style:none;display:grid;gap:.35rem}
     </ul>
     <div class="nav-r">
       <a href="#kontakti" class="btn btn-main">Запиши час</a>
-      <button class="lang-btn" id="langBtn" aria-label="Switch to English" lang="en">EN</button>
       <button class="theme-btn" id="themeBtn" aria-label="Смени на тъмна тема">
         <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
         <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
@@ -780,131 +775,6 @@ footer ul{list-style:none;display:grid;gap:.35rem}
 <canvas id="confetti"></canvas>
 
 <script>
-const EN={
-"Демо версия: имената, текстовете и цените са примерни":"Demo version: names, texts and prices are examples",
-"Думичка":"Dumichka","логопедичен кабинет":"speech therapy",
-"Услуги":"Services","За мен":"About me","Игра":"Games","Кога да дойдете":"When to come","Цени":"Prices","Контакти":"Contact",
-"Запиши час":"Book a visit","Всяка дума звучи по-уверено":"Every word sounds more confident",
-"Логопедична терапия за деца и възрастни в Пловдив. Работим в игра, в спокойна обстановка и с план, който родителите разбират.":"Speech therapy for children and adults in Plovdiv. We work through play, in a calm setting, with a plan parents can follow.",
-"Запиши консултация":"Book a consultation","Снимка на кабинета":"Photo of the practice",
-"Здравей! Аз съм Рики 🦜 Натисни някоя буква!":"Hi! I’m Riki 🦜 Tap a letter!",
-"С какво можем да помогнем":"How we can help","Изберете затруднението, за да видите как работим с него.":"Choose a difficulty to see how we work with it.",
-"Неправилно произношение":"Mispronounced sounds","Забавено говорно развитие":"Delayed speech development","Заекване":"Stuttering","Ограмотяване":"Reading and writing","Комуникация и разбиране":"Communication and understanding","Възрастни":"Adults",
-"Когато някои звуци се изговарят грешно, пропускат се или се заменят с други.":"When some sounds are pronounced wrongly, left out or replaced with others.",
-"Звуци като Р, Л, С, Ш, Ж, Ч":"Sounds like R, L, S, Sh, Zh, Ch","Упражнения за език и устни в игра":"Tongue and lip exercises through play","Задачи за вкъщи за 15–20 минути на ден":"Home practice of 15–20 minutes a day","Най-често деца от 3 до 7 години":"Most often children aged 3 to 7",
-"Когато детето говори по-малко от връстниците си или трудно съставя изречения.":"When a child speaks less than their peers or finds it hard to form sentences.",
-"Обогатяване на речника":"Building vocabulary","Първи думи и изречения":"First words and sentences","Съвети за работа с детето вкъщи":"Tips for practising at home","Деца от 3 до 5 години":"Children aged 3 to 5",
-"Работа върху плавността на речта и увереността при говорене.":"Working on fluent speech and confidence when speaking.",
-"Техники за спокойно и плавно говорене":"Techniques for calm, fluent speech","Дишане и темп":"Breathing and pace","Увереност в училище и работна среда":"Confidence at school and at work","Деца и възрастни":"Children and adults",
-"Трудности с буквите, четенето и правописа в училищна възраст.":"Difficulties with letters, reading and spelling at school age.",
-"Звуков анализ и букви":"Sound analysis and letters","Четене с разбиране":"Reading comprehension","Правопис без сълзи":"Spelling without tears","Ученици от 1. до 4. клас":"Pupils in grades 1 to 4",
-"Подкрепа при аутизъм и други затруднения в общуването.":"Support for autism and other communication difficulties.",
-"Разбиране на речта":"Understanding speech","Общуване в игра":"Communicating through play","Работа заедно с родителите":"Working together with parents","Деца на всяка възраст":"Children of any age",
-"Възстановяване на говора след инсулт или травма, работа с гласа и дикцията.":"Recovering speech after a stroke or injury, voice and diction work.",
-"Възстановяване след инсулт":"Recovery after a stroke","Дикция и глас":"Diction and voice","Занимания и онлайн":"Sessions in person and online",
-"МАРИЯ ПЕТРОВА ✦ ЛОГОПЕД ✦ ПЛОВДИВ ✦ ДЕЦА И ВЪЗРАСТНИ ✦":"MARIA PETROVA ✦ SPEECH THERAPIST ✦ PLOVDIV ✦ ",
-"Портретна снимка":"Portrait photo","Здравейте, аз съм Мария Петрова":"Hello, I’m Maria Petrova",
-"Логопед с над 10 години опит. Най-добрите резултати идват, когато детето се чувства спокойно, а родителите знаят какво се случва на всяка стъпка.":"A speech therapist with over 10 years of experience. The best results come when the child feels at ease and the parents know what is happening at every step.",
-"години опит":"years of experience","деца":"children","занимания":"sessions",
-"Магистър по логопедия, [университет]":"MA in Speech Therapy, [university]","Член на [асоциация]":"Member of [association]","[метод 1], [метод 2]":"[method 1], [method 2]","На място и онлайн":"In person and online",
-"Игри за малките говорители":"Games for little talkers",
-"Пукай само балончетата с думи, които започват със звука горе. Кажи думата на глас, преди да я пукнеш!":"Pop only the bubbles with words that start with the sound at the top. Say the word out loud before you pop it! (The words are in Bulgarian.)",
-"Виж картинката, кажи думата и избери първия звук. Внимавай: трите възможности звучат много близко, точно като звуците, които децата най-често объркват.":"Look at the picture, say the word and choose the first sound. Careful: the three options sound very similar, just like the sounds children most often mix up. (The words are in Bulgarian.)",
-"🎈 Хвани звука":"🎈 Catch the sound","🃏 Близки звуци":"🃏 Similar sounds","Звук:":"Sound:",
-"Готови ли сте?":"Ready?","30 секунди. Три сърчица. Пукай балончетата с правилния звук.":"30 seconds. Three hearts. Pop the bubbles with the right sound.",
-"Започни играта":"Start the game","Хвана":"You caught","Хвана балончета:":"Bubbles caught:","Хвана 1 балонче":"You caught 1 bubble","Браво!":"Well done!","Играй отново":"Play again",
-"Шампион на звуците! 🏆":"Sound champion! 🏆","Супер говорител! 🌟":"Super talker! 🌟","Добро начало! 🙂":"Good start! 🙂",
-"Кажи думата на глас. С кой звук започва?":"Say the word out loud. Which sound does it start with?","Браво! Точно така 🎉":"Well done! That’s right 🎉","Ето го! Продължаваме 👏":"There it is! Let’s keep going 👏","Почти! Звучат си близко. Опитай пак 🙂":"Almost! They sound alike. Try again 🙂",
-"Супер слух!":"Super hearing!","Много добре!":"Very good!","Добро начало!":"Good start!",
-"Р е от най-трудните звуци. Често се заменя с Л или Й: „либа“ вместо „риба“.":"R is one of the hardest sounds. It is often replaced with L or Y: “liba” instead of “riba”.",
-"Л и Р се правят с върха на езика, затова лесно се разменят.":"L and R are both made with the tip of the tongue, so they are easily swapped.",
-"С е беззвучна, З е звучна. Сложи ръка на гърлото: при З то вибрира.":"S is voiceless, Z is voiced. Put a hand on your throat: with Z it vibrates.",
-"При Ш езикът е горе, при С е зад зъбите. Затова децата ги разменят.":"For Sh the tongue is raised, for S it is behind the teeth. That’s why children mix them up.",
-"Ж и Ш се казват по един и същ начин, само Ж е звучна.":"Zh and Sh are made the same way, only Zh is voiced.",
-"З звучи като пчеличка, а С като спукана гума.":"Z sounds like a bee, S like a flat tyre.",
-"Ц е като кратко „тС“. Затова децата често я заменят със С.":"Ts is like a short “t-s”, so children often replace it with S.",
-"Ч е като кратко „тШ“. Обърква се с Ц и с Ш.":"Ch is like a short “t-sh”. It gets mixed up with Ts and Sh.",
-"К и Т често се разменят при малките деца: „тотка“ вместо „котка“.":"Young children often swap K and T: “totka” instead of “kotka”.",
-"Г е звучната двойка на К. Понякога децата я заменят с Д.":"G is the voiced pair of K. Children sometimes replace it with D.",
-"Т и Д са двойка: Т е беззвучна, Д е звучна. А К понякога я замества.":"T and D are a pair: T is voiceless, D is voiced. K sometimes replaces it.",
-"Д е звучната двойка на Т. При малките деца понякога звучи като Г.":"D is the voiced pair of T. In young children it sometimes sounds like G.",
-"Б и П се правят с устни. Б е звучна, П е беззвучна.":"B and P are made with the lips. B is voiced, P is voiceless.",
-"П е беззвучната двойка на Б. Ф пък се прави с горните зъби и долната устна.":"P is the voiceless pair of B. F is made with the upper teeth and lower lip.",
-"В и Ф се правят с горните зъби и долната устна. В е звучна, Ф е беззвучна.":"V and F are made with the upper teeth and lower lip. V is voiced, F is voiceless.",
-"Кога да потърсите логопед":"When to see a speech therapist",
-"Всяко дете се развива със собствено темпо. Ако разпознавате някой от тези знаци, една консултация ще Ви даде яснота.":"Every child develops at their own pace. If you recognise any of these signs, a consultation will give you clarity.",
-"🧸 2–3 години":"🧸 2–3 years","🎨 3–5 години":"🎨 3–5 years","🎒 Училище":"🎒 School","🙂 Възрастни":"🙂 Adults",
-"Казва много малко думи или не ги свързва в кратки фрази.":"Says very few words or doesn’t join them into short phrases.",
-"Трудно разбира прости молби и въпроси.":"Has trouble understanding simple requests and questions.",
-"Сочи или дърпа, вместо да каже какво иска.":"Points or pulls instead of saying what they want.",
-"Непознатите трудно разбират какво казва.":"Strangers find it hard to understand them.",
-"Пропуска или заменя много звуци.":"Leaves out or replaces many sounds.",
-"Запъва се, повтаря срички или се напряга, когато говори.":"Gets stuck, repeats syllables or strains when speaking.",
-"Бавно научава буквите или чете с много грешки.":"Is slow to learn letters or reads with many mistakes.",
-"Разменя, пропуска или обръща букви при писане.":"Swaps, skips or reverses letters when writing.",
-"Трудно преразказва или подрежда мислите си.":"Finds it hard to retell things or organise their thoughts.",
-"Затруднения в говора след инсулт или травма.":"Speech difficulties after a stroke or injury.",
-"Заекване, което пречи в работата и ежедневието.":"Stuttering that gets in the way at work and in daily life.",
-"Неясна дикция или бързо уморяване на гласа.":"Unclear diction or a voice that tires quickly.",
-"Информацията е ориентировъчна и не замества консултация със специалист.":"This information is a guide only and does not replace a consultation with a specialist.",
-"Как протича работата":"How it works","Ден 1":"Day 1","Обаждане":"Call us",
-"Разказвате накратко какво Ви притеснява и уговаряме удобен час.":"Tell us briefly what concerns you and we’ll arrange a convenient time.",
-"Първа среща":"First meeting","Консултация и оценка":"Consultation and assessment",
-"Запознаваме се, оценяваме говора и обсъждаме резултатите заедно.":"We get to know each other, assess speech and discuss the results together.",
-"Същата седмица":"Same week","План за работа":"Therapy plan",
-"Определяме цели, колко често да идвате и задачи за вкъщи.":"We set goals, agree how often to come and give home practice.",
-"Всяка седмица":"Every week","Занимания и напредък":"Sessions and progress",
-"Работим в игра и редовно Ви казваме как върви напредъкът.":"We work through play and keep you regularly updated on progress.",
-"Първа консултация":"First consultation","Запознаване, оценка и препоръки":"Introduction, assessment and recommendations","60 минути":"60 minutes",
-"Индивидуално занимание":"Individual session","В кабинета, по индивидуален план":"At the practice, with an individual plan","45 минути":"45 minutes",
-"Пакет от 8 занимания":"Package of 8 sessions","Два пъти седмично, с отстъпка":"Twice a week, discounted","на месец":"per month","Цените са примерни.":"Prices are examples.",
-"Какво казват родителите":"What parents say",
-"Тук ще стои истински отзив от Google, например за промяната при детето след няколко месеца.":"A real Google review will go here, for example about a child’s progress after a few months.",
-"Име на родител":"Parent’s name","примерен":"example","Име на клиент":"Client’s name",
-"Втори отзив, за атмосферата в кабинета и подхода към децата.":"A second review, about the atmosphere and the approach to children.",
-"Трети отзив, например от възрастен клиент или за онлайн заниманията.":"A third review, for example from an adult client or about online sessions.",
-"Четвърти отзив, например за това колко лесно е било записването.":"A fourth review, for example about how easy it was to book.",
-"Често задавани въпроси":"Frequently asked questions","Не намирате отговор? Обадете се, ще Ви отговорим с радост.":"Can’t find an answer? Give us a call, we’ll be happy to help.",
-"От каква възраст може да дойде детето?":"From what age can a child come?",
-"Консултация може да се направи от 3-годишна възраст, ако имате притеснения. Колкото по-рано, толкова по-добре.":"A consultation is possible from the age of 3 if you have concerns. The earlier, the better.",
-"Колко време продължава терапията?":"How long does therapy last?",
-"Зависи от затруднението. След оценката ще Ви дадем ориентир за продължителността.":"It depends on the difficulty. After the assessment we’ll give you an idea of how long it will take.",
-"Може ли родителят да присъства?":"Can a parent be present?",
-"Да. На първата среща присъствието Ви е задължително, а след това детето е само в присъствието на терапевта.":"Yes. Your presence is required at the first meeting; after that the child is alone with the therapist.",
-"Имате ли онлайн занимания?":"Do you offer online sessions?","Да, при определени нарушения е напълно възможно.":"Yes, for certain difficulties this is entirely possible.",
-"Трябва ли ми направление?":"Do I need a referral?","Не, можете да се обадите директно и да запишем час.":"No, you can call us directly and we’ll book a visit.",
-"Запишете час":"Book a visit","Обадете се или оставете съобщение. Ще Ви върнем отговор в рамките на деня.":"Call us or leave a message. We’ll get back to you the same day.",
-"Обаждане или Viber":"Phone or Viber","ул. „Примерна“ 12, Пловдив":"12 Primerna St, Plovdiv","[квартал], близо до [ориентир]":"[district], near [landmark]",
-"Пон – Пет, 9:00 – 19:00":"Mon – Fri, 9:00 – 19:00","Събота по уговорка":"Saturday by appointment",
-"Вашето име":"Your name","Телефон":"Phone","За кого е?":"Who is it for?","Дете":"Child","Възрастен":"Adult","Възраст":"Age","Какво Ви притеснява?":"What concerns you?","Изпрати запитване":"Send enquiry",
-"🎉 Запитването е изпратено. Ще се свържем с Вас скоро. (В демото формата не изпраща нищо.)":"🎉 Your enquiry has been sent. We’ll be in touch soon. (In the demo the form doesn’t send anything.)",
-"Логопедична терапия за деца и възрастни в Пловдив.":"Speech therapy for children and adults in Plovdiv.",
-"Страници":"Pages","Връзка":"Contact","© 2026 Думичка":"© 2026 Dumichka","Сайт:":"Website:","Обади се":"Call",
-"Думичка, начало":"Dumichka, home","Смени на тъмна тема":"Switch to dark theme","Смени на светла тема":"Switch to light theme","Меню":"Menu","Папагалът Рики":"Riki the parrot",
-"Предишен отзив":"Previous review","Следващ отзив":"Next review","Тук ще бъде картата от Google Maps":"The Google Maps map will go here",
-"Име и фамилия":"First and last name","напр. 4 години":"e.g. 4 years","Накратко, по желание":"Briefly, optional","Към началото на страницата":"Back to top",
-"🎮 Хайде да поиграем!":"🎮 Let’s play!","Аз съм папагал, обичам да повтарям думи! Натисни буква 👆":"I’m a parrot, I love repeating words! Tap a letter 👆",
-"Знаеш ли? Буквата Р е от най-трудните звуци.":"Did you know? R is one of the hardest sounds.","Имам две игри за теб!":"I have two games for you!","Пукни балончета с правилния звук!":"Pop the bubbles with the right sound!",
-"Хайде, пробвай! Натисни":"Go on, try it! Tap","или":"or",
-"Хей! Тук долу има игри за малките 🎮":"Hey! There are games for little ones down here 🎮","Към игрите":"To the games","Затвори":"Close"
-};
-
-let LANG='bg';try{LANG=localStorage.getItem('lang')||'bg'}catch(e){}
-const _origT=new Map(),_origA=[];const _norm=t=>t.replace(/\s+/g,' ').trim();
-function _trNode(n){if(LANG!=='en')return;const raw=n.nodeValue,k=_norm(raw);const v=EN[k];if(!v)return;
-  _origT.set(n,raw);n.nodeValue=raw.match(/^\s*/)[0]+v+raw.match(/\s*$/)[0]}
-function _trTree(root){if(LANG!=='en')return;
-  if(root.nodeType===3){_trNode(root);return}if(root.nodeType!==1)return;
-  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>/^(SCRIPT|STYLE)$/.test(n.parentElement&&n.parentElement.tagName)?2:1});let n;
-  while(n=w.nextNode())_trNode(n);
-  [root,...root.querySelectorAll('[placeholder],[aria-label]')].forEach(e=>{if(!e.getAttribute)return;['placeholder','aria-label'].forEach(a=>{const o=e.getAttribute(a);if(o&&EN[_norm(o)]){_origA.push([e,a,o]);e.setAttribute(a,EN[_norm(o)])}})})}
-function _untr(){_origT.forEach((v,n)=>{n.nodeValue=v});_origT.clear();_origA.forEach(([e,a,o])=>e.setAttribute(a,o));_origA.length=0}
-new MutationObserver(ms=>{if(LANG!=='en')return;for(const m of ms){if(m.type==='characterData')_trNode(m.target);else m.addedNodes.forEach(_trTree)}})
-  .observe(document.documentElement,{childList:true,subtree:true,characterData:true});
-const TITLE={bg:document.title,en:'Speech therapy practice “Dumichka” – demo'};
-function setLang(l){LANG=l;try{localStorage.setItem('lang',l)}catch(e){}
-  document.documentElement.lang=l;document.title=TITLE[l];_untr();if(l==='en')_trTree(document.body);
-  const b=document.getElementById('langBtn');if(b){b.textContent=l==='en'?'BG':'EN';b.setAttribute('aria-label',l==='en'?'Превключи на български':'Switch to English');b.lang=l==='en'?'bg':'en'}}
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const COLS=['--lilac','--sky','--mint','--butter','--peach','--pink'];
@@ -923,7 +793,7 @@ const GO='<br><a class="go" href="#igra">🎮 Хайде да поиграем!<
 function rikiSay(html){say.innerHTML=html;say.classList.remove('pulse');void say.offsetWidth;say.classList.add('pulse');
   riki.classList.remove('talk');void riki.offsetWidth;riki.classList.add('talk');bird.classList.remove('hop');void bird.offsetWidth;bird.classList.add('hop')}
 $$('.mag').forEach(m=>m.onclick=()=>{$$('.mag').forEach(x=>x.classList.remove('on'));void m.offsetWidth;m.classList.add('on');taps++;
-  rikiSay(`<b>${m.textContent}</b> ${LANG==='en'?'as in':'като'} ${m.dataset.w}!`+(taps>=2?GO:''))});
+  rikiSay(`<b>${m.textContent}</b> като ${m.dataset.w}!`+(taps>=2?GO:''))});
 const RIKI=['Аз съм папагал, обичам да повтарям думи! Натисни буква 👆','Знаеш ли? Буквата Р е от най-трудните звуци.','Имам две игри за теб!'+GO,'Пукни балончета с правилния звук!'+GO];
 let ri=0;bird.onclick=()=>{rikiSay(RIKI[ri%RIKI.length]);ri++};
 setTimeout(()=>{if(!taps)rikiSay('Хайде, пробвай! Натисни <b>Р</b>, <b>Ш</b>, <b>Л</b> или <b>С</b> 👆')},9000);
@@ -973,7 +843,7 @@ addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onS
 totop.onclick=()=>scrollTo({top:0,behavior:reduce?'auto':'smooth'});
 const themeBtn=$('#themeBtn'),metaTC=document.querySelector('meta[name="theme-color"]');
 function setTheme(t){document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('theme',t)}catch(e){}
-  themeBtn.setAttribute('aria-label',(LANG==='en'?{d:'Switch to light theme',l:'Switch to dark theme'}:{d:'Смени на светла тема',l:'Смени на тъмна тема'})[t==='dark'?'d':'l']);if(metaTC)metaTC.content=t==='dark'?'#15132b':'#5b3fd6'}
+  themeBtn.setAttribute('aria-label',t==='dark'?'Смени на светла тема':'Смени на тъмна тема');if(metaTC)metaTC.content=t==='dark'?'#15132b':'#5b3fd6'}
 setTheme(document.documentElement.getAttribute('data-theme')||'light');
 themeBtn.onclick=()=>setTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');
 
@@ -1127,7 +997,7 @@ function cPick(b){const [,w,l,,tip]=cq[ci];
   }else{ct++;b.classList.add('wrong');b.disabled=true;qask.textContent='Почти! Звучат си близко. Опитай пак 🙂'}}
 function cEnd(){$('#cTitle').textContent=cs>=9?'Супер слух!':cs>=6?'Много добре!':'Добро начало!';
   $('#cStars').textContent='★'.repeat(cs)+'☆'.repeat(NQ-cs);
-  $('#cText').textContent=LANG==='en'?`You got ${cs} of ${NQ} sounds right on the first try. Similar sounds are the hardest, which is why we practise them in our sessions.`:`Позна ${cs} от ${NQ} звука от първия опит. Близките звуци са най-трудни, затова ги упражняваме в кабинета.`;
+  $('#cText').textContent=`Позна ${cs} от ${NQ} звука от първия опит. Близките звуци са най-трудни, затова ги упражняваме в кабинета.`;
   $('#cend').classList.add('show');const r=$('#cards').getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/3,110)}
 $('#cagain').onclick=cStart;
 
@@ -1150,9 +1020,6 @@ function flyCheck(){if(flyDone)return;const hb=heroEl.getBoundingClientRect().bo
 addEventListener('scroll',flyCheck,{passive:true});
 function flyAway(){fly.classList.add('flying');fly.classList.remove('show');flyDone=true}
 $('#flyX').onclick=flyAway;$('#flyGo').onclick=()=>setTimeout(flyAway,300);flyBird.onclick=()=>{location.hash='igra';flyAway()};
-/* ---- език ---- */
-$('#langBtn').onclick=()=>{setLang(LANG==='en'?'bg':'en');showSvc([...document.querySelectorAll('.sel-btn')].findIndex(b=>b.getAttribute('aria-selected')==='true'))};
-setLang(LANG);
 </script>
 </body>
 </html>
