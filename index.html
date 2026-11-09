@@ -42,6 +42,8 @@ img,svg{display:block;max-width:100%}
 button{font:inherit;color:inherit}
 .wrap{width:min(1160px,92%);margin:0 auto;position:relative}
 h1,h2,h3{font-family:var(--disp);line-height:1.15;letter-spacing:-.015em}
+/* Шрифтовете: българските форми (locl) дават грешно разстояние след „ъ“, затова ползваме стандартните кирилски форми */
+html,body,button,input,select,textarea,svg text{font-feature-settings:"locl" 0}
 h2{font-size:clamp(1.7rem,4.4vw,2.7rem);font-weight:800;margin-bottom:.8rem;max-width:18ch}
 h3{font-weight:700}
 .lead{color:var(--muted);font-size:1.1rem;max-width:54ch}
