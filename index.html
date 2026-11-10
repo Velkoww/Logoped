@@ -348,6 +348,23 @@ header.scrolled{box-shadow:0 8px 30px rgba(42,37,80,.07)}
 .panel div:nth-child(2){animation-delay:.08s}.panel div:nth-child(3){animation-delay:.16s}
 .panel div em{display:block;font-style:normal;font-size:1.7rem;margin-bottom:.4rem}
 .note{font-size:.88rem;color:var(--muted);margin-top:1rem}
+/* плъзгане и стрелки между табовете */
+.sel-panel,.panel{touch-action:pan-y}
+.swnav{display:flex;align-items:center;justify-content:center;gap:.9rem;margin:-.2rem 0 1rem}
+.sel .swnav{margin:-.7rem 0 -.4rem}
+.swbtn{width:44px;height:44px;border-radius:50%;border:0;cursor:pointer;background:var(--surface-2);color:var(--ink);display:grid;place-items:center;transition:transform .25s var(--spring),background .2s,color .2s,opacity .2s}
+.swbtn svg{width:20px;height:20px}
+.swbtn:active:not(:disabled){transform:scale(.9)}
+@media(hover:hover){.swbtn:hover:not(:disabled){background:var(--violet);color:#fff;transform:scale(1.08)}}
+.swbtn:disabled{opacity:.35;cursor:default}
+.swdots{display:flex;gap:6px;align-items:center}
+.swdots i{width:8px;height:8px;border-radius:99px;background:color-mix(in srgb,var(--ink) 20%,transparent);transition:width .35s var(--spring),background .3s}
+.swdots i.on{width:22px;background:var(--accent-t)}
+@media(min-width:1000px){.swnav{display:none}}
+@keyframes inR{from{opacity:0;transform:translateX(44px)}to{opacity:1;transform:none}}
+@keyframes inL{from{opacity:0;transform:translateX(-44px)}to{opacity:1;transform:none}}
+.sel-panel[data-dir="1"].swap :is(.inner,.big),.panel[data-dir="1"] div{animation-name:inR}
+.sel-panel[data-dir="-1"].swap :is(.inner,.big),.panel[data-dir="-1"] div{animation-name:inL}
 
 /* ===== TIMELINE ===== */
 .tl-sec{background:var(--lilac-l)}
@@ -526,6 +543,7 @@ footer ul{list-style:none;display:grid;gap:.35rem}
     <p class="lead rv" style="--i:1">Изберете затруднението, за да видите как работим с него.</p>
     <div class="sel rv" style="--i:2">
       <div class="sel-list" role="tablist" id="selList"></div>
+      <div class="swnav" id="selNav"></div>
       <div class="sel-panel" id="selPanel" role="tabpanel"></div>
     </div>
   </div>
@@ -623,6 +641,7 @@ footer ul{list-style:none;display:grid;gap:.35rem}
       <button class="tab" role="tab" aria-selected="false" data-p="p3" style="--c:var(--sky)">🎒 Училище</button>
       <button class="tab" role="tab" aria-selected="false" data-p="p4" style="--c:var(--pink)">🙂 Възрастни</button>
     </div>
+    <div class="swnav" id="tabNav"></div>
     <div class="panel active" id="p1" style="--c:var(--mint-l)">
       <div><em>💬</em>Казва много малко думи или не ги свързва в кратки фрази.</div>
       <div><em>👂</em>Трудно разбира прости молби и въпроси.</div>
@@ -813,14 +832,31 @@ const SVC=[
  {t:'Ограмотяване',i:'book',c:'--sky',g:'Б',d:'Трудности с буквите, четенето и правописа в училищна възраст.',l:['Звуков анализ и букви','Четене с разбиране','Правопис без сълзи'],w:'Ученици от 1. до 4. клас'},
  {t:'Комуникация и разбиране',i:'chat',c:'--pink',g:'?!',d:'Подкрепа при аутизъм и други затруднения в общуването.',l:['Разбиране на речта','Общуване в игра','Работа заедно с родителите'],w:'Деца на всяка възраст'},
  {t:'Възрастни',i:'heart',c:'--peach',g:'Я',d:'Възстановяване на говора след инсулт или травма, работа с гласа и дикцията.',l:['Възстановяване след инсулт','Дикция и глас','Занимания и онлайн'],w:'Възрастни'}];
+/* стрелки, точки и плъзгане наляво/надясно за секциите с табове */
+function swipeNav(nav,areas,n,go){let cur=0;
+  const a=d=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d}"/></svg>`;
+  nav.innerHTML=`<button class="swbtn" type="button" aria-label="Предишно">${a('M15 5l-7 7 7 7')}</button><span class="swdots" aria-hidden="true">${'<i></i>'.repeat(n)}</span><button class="swbtn" type="button" aria-label="Следващо">${a('M9 5l7 7-7 7')}</button>`;
+  const [prev,next]=nav.querySelectorAll('.swbtn'),dots=[...nav.querySelectorAll('i')];
+  const step=d=>{const i=cur+d;if(i>=0&&i<n)go(i,d)};
+  prev.onclick=()=>step(-1);next.onclick=()=>step(1);
+  areas.forEach(el=>{let x=0,y=0,ok=false;
+    el.addEventListener('touchstart',e=>{ok=e.touches.length===1;x=e.touches[0].clientX;y=e.touches[0].clientY},{passive:true});
+    el.addEventListener('touchend',e=>{if(!ok)return;ok=false;const p=e.changedTouches[0],dx=p.clientX-x,dy=p.clientY-y;
+      if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.5)step(dx<0?1:-1)},{passive:true})});
+  return i=>{cur=i;prev.disabled=i===0;next.disabled=i===n-1;dots.forEach((d,j)=>d.classList.toggle('on',j===i))}}
+function centerIn(strip,btn){if(strip.scrollWidth<=strip.clientWidth)return;const s=strip.getBoundingClientRect(),b=btn.getBoundingClientRect();
+  strip.scrollTo({left:strip.scrollLeft+b.left-s.left-(s.width-b.width)/2,behavior:reduce?'auto':'smooth'})}
 const list=$('#selList'),panel=$('#selPanel');
 list.innerHTML=SVC.map((s,i)=>`<button class="sel-btn" role="tab" aria-selected="${i===0}" style="--c:var(${s.c})"><i>${ic[s.i]}</i>${s.t}</button>`).join('');
-function showSvc(i){const s=SVC[i];
+let curSvc=0;
+function showSvc(i,d){const s=SVC[i];curSvc=i;panel.dataset.dir=d||0;
   $$('.sel-btn').forEach((b,j)=>b.setAttribute('aria-selected',j===i));
+  if(d)centerIn(list,list.children[i]);svcNav(i);
   panel.style.setProperty('--c',`var(${s.c})`);
   panel.innerHTML=`<span class="big" aria-hidden="true">${s.g}</span><div class="inner"><h3>${s.t}</h3><p>${s.d}</p><ul>${s.l.map(x=>`<li>${x}</li>`).join('')}</ul><span class="who">${s.w}</span></div>`;
   panel.classList.remove('swap');void panel.offsetWidth;panel.classList.add('swap')}
-$$('.sel-btn').forEach((b,i)=>b.onclick=()=>showSvc(i));showSvc(0);
+const svcNav=swipeNav($('#selNav'),[panel],SVC.length,showSvc);
+$$('.sel-btn').forEach((b,i)=>b.onclick=()=>showSvc(i,Math.sign(i-curSvc)));showSvc(0);
 
 /* ---- reveal + counters ---- */
 function countUp(el){const end=+el.dataset.count,suf=el.dataset.suffix||'',t1=performance.now();
@@ -848,9 +884,13 @@ setTheme(document.documentElement.getAttribute('data-theme')||'light');
 themeBtn.onclick=()=>setTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');
 
 /* tabs */
-$$('.tab').forEach(t=>t.onclick=()=>{
-  $$('.tab').forEach(x=>x.setAttribute('aria-selected','false'));$$('.panel').forEach(p=>p.classList.remove('active'));
-  t.setAttribute('aria-selected','true');$('#'+t.dataset.p).classList.add('active')});
+const tabs=$$('.tab'),panes=tabs.map(t=>$('#'+t.dataset.p));let curTab=0;
+function showTab(i,d){curTab=i;
+  tabs.forEach((t,j)=>t.setAttribute('aria-selected',j===i));
+  panes.forEach((p,j)=>{p.dataset.dir=d||0;p.classList.toggle('active',j===i)});
+  if(d)centerIn(tabs[i].parentNode,tabs[i]);tabNav(i)}
+const tabNav=swipeNav($('#tabNav'),panes,tabs.length,showTab);
+tabs.forEach((t,i)=>t.onclick=()=>showTab(i,Math.sign(i-curTab)));showTab(0);
 
 /* reviews nav */
 const rev=$('#rev');const step=()=>rev.firstElementChild.getBoundingClientRect().width+18;
